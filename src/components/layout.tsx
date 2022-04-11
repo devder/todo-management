@@ -56,8 +56,8 @@ export const Layout: FC<LayoutProps> = ({
       <Head>
         <title>{title}</title>
         <link rel="icon" href="/favicon.ico" />
-        {metaData.map(({ name, content }) => (
-          <meta key={name} name={name} content={content} />
+        {metaData.map(({ name, content }, i) => (
+          <meta key={i.toString()} name={name} content={content} />
         ))}
       </Head>
       <main role="main">{children}</main>
