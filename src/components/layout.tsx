@@ -1,5 +1,6 @@
 import { ReactNode, FC } from "react";
 import Head from "next/head";
+import { Navbar } from "./navbar";
 
 interface LayoutProps {
   children: ReactNode;
@@ -60,7 +61,10 @@ export const Layout: FC<LayoutProps> = ({
           <meta key={i.toString()} name={name} content={content} />
         ))}
       </Head>
-      <main role="main">{children}</main>
+      <main role="main">
+        <Navbar />
+        {children}
+      </main>
     </>
   );
 };
