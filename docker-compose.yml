@@ -1,0 +1,14 @@
+version: "3.3"
+
+services:
+  todo-management:
+    container_name: todo-management
+    ports:
+      - 3000:3000
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
