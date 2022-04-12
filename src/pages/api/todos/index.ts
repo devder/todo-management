@@ -1,5 +1,5 @@
 import { AppResponse } from "app/lib/app-response";
-import { extractDataFromDb, getDbPath } from "app/utils/db-connect";
+import { extractDataFromDb } from "app/utils/db-connect";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ITodo } from "todos/interfaces";
 
@@ -17,14 +17,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   }
 
   try {
-    const filePath = getDbPath("todos");
-    const todosJson = extractDataFromDb<ITodo[]>(filePath);
+    const todos = await extractDataFromDb<ITodo[]>("todos");
 
     response = {
-      data: todosJson,
+      data: todos,
       message: "List of Todos",
       status: true,
     };
+
     res.status(200).json(response);
   } catch (error) {
     response = {
