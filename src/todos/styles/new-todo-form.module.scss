@@ -1,0 +1,32 @@
+.card {
+  padding: 1rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  box-shadow: var(--box-shadow);
+}
+
+.card_content {
+  width: 100%;
+}
+
+.input_wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--background-color-dark);
+  border-radius: 0.5rem;
+  padding-left: 1rem;
+  color: var(--text-color-secondary);
+  margin: 0.5rem 0;
+}
+
+.todo_input {
+  width: 100%;
+}
+
+.todo_form_button {
+  text-transform: none;
+  background-color: var(--primary-color);
+}

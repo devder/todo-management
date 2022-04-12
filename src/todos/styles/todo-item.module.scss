@@ -1,0 +1,30 @@
+.todo_row {
+  display: flex;
+  padding: 1rem;
+  text-align: center;
+  background-color: var(--background-color-light);
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--box-shadow);
+  font-weight: 500;
+  transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
+
+  &:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: 0px 0.25rem 1rem rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+  }
+}
+
+.todo_name,
+.todo_code {
+  flex-grow: 1;
+
+  & svg {
+    color: var(--primary-color);
+  }
+}
+
+.action_buttons {
+  display: flex;
+}
