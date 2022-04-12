@@ -35,12 +35,14 @@ a {
   font: inherit;
 }
 
+main {
+  padding: 1rem 0;
+}
+
 .container {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
+  padding: 0 1rem;
+  margin: auto;
 }
 
 @media (min-width: 576px) {

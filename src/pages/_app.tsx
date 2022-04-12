@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import "../styles/globals.scss";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { TodosProvider } from "todos/context/todos-context";
 
 const theme = createTheme({
   typography: {
@@ -11,7 +12,9 @@ const theme = createTheme({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
-      <Component {...pageProps} />;
+      <TodosProvider value={[]}>
+        <Component {...pageProps} />;
+      </TodosProvider>
     </ThemeProvider>
   );
 }

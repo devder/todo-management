@@ -1,0 +1,29 @@
+[
+  {
+    "id": "42289e88-401e-4eff-86f2-0ae5d88bfd26",
+    "content": "Walk the dog",
+    "dueDate": "2022-04-12T11:52:18.630Z",
+    "status": "unfinished"
+  },
+
+  {
+    "id": "42289e88-401e-4eff-86f2-0ae5d88bfd26",
+    "content": "Feed the fish",
+    "dueDate": "2022-04-11T11:52:18.630Z",
+    "status": "unfinished"
+  },
+
+  {
+    "id": "42289e88-401e-4eff-86f2-0ae5d88bfd26",
+    "content": "Milk the cow",
+    "dueDate": "2022-04-10T11:52:18.630Z",
+    "status": "done"
+  },
+
+  {
+    "id": "42289e88-401e-4eff-86f2-0ae5d88bfd26",
+    "content": "Ride the horse",
+    "dueDate": "2022-04-09T11:52:18.630Z",
+    "status": "done"
+  }
+]
