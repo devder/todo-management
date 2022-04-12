@@ -1,7 +1,7 @@
 export interface ITodo {
   id: string;
   content: string;
-  dueDate: Date;
+  dueDate: string;
   status: "unfinished" | "done";
 }
 
