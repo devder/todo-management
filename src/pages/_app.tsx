@@ -10,10 +10,12 @@ const theme = createTheme({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { todos, ...otherPageProps } = pageProps;
+
   return (
     <ThemeProvider theme={theme}>
-      <TodosProvider value={[]}>
-        <Component {...pageProps} />;
+      <TodosProvider value={todos}>
+        <Component {...otherPageProps} />;
       </TodosProvider>
     </ThemeProvider>
   );

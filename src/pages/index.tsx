@@ -1,18 +1,26 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { Layout } from "app/components/layout";
 import { NewTodoForm } from "todos/components/new-todo-form";
-import { ITodo } from "todos/interfaces";
+import { ITodo, TodoActionType } from "todos/interfaces";
 import { AppResponse } from "app/lib/app-response";
 import { TodoList } from "todos/components/todo-list";
 import env from "app/lib/environment";
+import { useContext, useEffect } from "react";
+import { TodosContext } from "todos/context/todos-context";
 
 interface Props {
-  todos: ITodo[];
-  status: boolean;
-  message: string;
+  initialTodos: ITodo[];
+  status?: boolean;
+  message?: string;
 }
 
-const Home: NextPage<Props> = ({ todos }) => {
+const Home: NextPage<Props> = ({ initialTodos }) => {
+  const { todos, getTodos } = useContext(TodosContext);
+
+  useEffect(() => {
+    getTodos(initialTodos);
+  }, []);
+
   return (
     <Layout>
       <div className="container" style={{ margin: "auto" }}>
@@ -28,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const res = await fetch(`${env.clientUrl}/api/todos/`);
     const { data, message, status } = (await res.json()) as AppResponse<ITodo[]>;
 
-    return { props: { todos: data, message, status } };
+    return { props: { initialTodos: data, message, status } };
   } catch (error) {
     return { props: { message: "An unknown error occurred" } };
   }
