@@ -4,7 +4,7 @@ services:
   todo-management:
     container_name: todo-management
     ports:
-      - 3000:3000
+      - 3001:3000
     build:
       context: ./
       dockerfile: Dockerfile

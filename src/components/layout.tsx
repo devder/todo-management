@@ -1,6 +1,7 @@
 import { ReactNode, FC } from "react";
 import Head from "next/head";
 import { Navbar } from "./navbar";
+import { Toolbar } from "@mui/material";
 
 interface LayoutProps {
   children: ReactNode;
@@ -63,6 +64,7 @@ export const Layout: FC<LayoutProps> = ({
       </Head>
       <main role="main">
         <Navbar />
+        <Toolbar />
         {children}
       </main>
     </>
