@@ -1,8 +1,13 @@
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 import { Button, Card, CardActions, CardContent, TextField } from "@mui/material";
+import { ChangeEvent, useState } from "react";
 import styles from "todos/styles/new-todo-form.module.scss";
 
 export const NewTodoForm: React.VFC = ({}) => {
+  const [todoContent, setTodoContent] = useState("");
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => setTodoContent(e.target.value);
+
   return (
     <Card className={styles.card}>
       <CardContent className={styles.card_content}>
@@ -12,6 +17,7 @@ export const NewTodoForm: React.VFC = ({}) => {
           variant="outlined"
           required
           className={styles.todo_input}
+          onChange={handleInputChange}
         />
       </CardContent>
       <CardActions>

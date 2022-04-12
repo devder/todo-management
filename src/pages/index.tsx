@@ -4,6 +4,7 @@ import { NewTodoForm } from "todos/components/new-todo-form";
 import { ITodo } from "todos/interfaces";
 import { AppResponse } from "app/lib/app-response";
 import { TodoList } from "todos/components/todo-list";
+import env from "app/lib/environment";
 
 interface Props {
   todos: ITodo[];
@@ -24,7 +25,7 @@ const Home: NextPage<Props> = ({ todos }) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const res = await fetch("http://localhost:3001/api/todos/");
+    const res = await fetch(`${env.clientUrl}/api/todos/`);
     const { data, message, status } = (await res.json()) as AppResponse<ITodo[]>;
 
     return { props: { todos: data, message, status } };

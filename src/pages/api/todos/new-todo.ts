@@ -19,8 +19,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   }
 
   try {
-    const { content } = req.body;
-    const newTodo: ITodo = { id: uuidv4(), content, dueDate: new Date().toISOString(), status: "unfinished" };
+    const { todoContent } = req.body;
+
+    const newTodo: ITodo = {
+      id: uuidv4(),
+      content: todoContent,
+      dueDate: new Date().toISOString(),
+      status: "unfinished",
+    };
 
     // read existing todos from todos db
     const todosData = await extractDataFromDb<ITodo[]>("todos");

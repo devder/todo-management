@@ -1,9 +1,9 @@
-import { ITodo, TodoAction } from "todos/interfaces";
+import { ITodo, TodoAction, TodoActionType } from "todos/interfaces";
 
 export const todoReducer = (state: ITodo[], action: TodoAction) => {
   switch (action.type) {
-    case "CREATE_TODO":
-      return { ...state };
+    case TodoActionType.CREATE_TODO:
+      return [action.payload, ...state];
 
     default:
       return state;
