@@ -1,7 +1,6 @@
 import { createContext, useReducer } from "react";
 import { ITodo, TodoActionType } from "todos/interfaces";
 import { todoReducer } from "todos/reducers/todo-reducer";
-import env from "app/lib/environment";
 import { AppResponse } from "app/lib/app-response";
 
 const initialState: ITodo[] = [];
@@ -25,7 +24,7 @@ export const TodosProvider: React.FC<TodosProviderProps> = ({ children }) => {
 
   const newTodo = async (todoContent: string) => {
     try {
-      const res = await fetch(`${env.clientUrl}/api/todos/new-todo`, {
+      const res = await fetch("/api/todos/new-todo", {
         body: JSON.stringify({ todoContent }),
         method: "POST",
         mode: "cors",
