@@ -2,39 +2,33 @@ import { AppResponse } from "app/lib/app-response";
 import { extractDataFromDb, writeDataToDb } from "app/utils/db-connect";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ITodo } from "todos/interfaces";
-import { v4 as uuidv4 } from "uuid";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<AppResponse<ITodo | null>>) {
   let response: AppResponse<ITodo | null>;
 
-  // this handler should only handle post requests
-  if (req.method === "POST") {
+  // this handler should only handle PUT requests
+  if (req.method === "PUT") {
     try {
-      const todoContent = req.body.todoContent as string;
+      const updatedTodo = req.body.updatedTodo as ITodo;
 
-      const newTodo: ITodo = {
-        id: uuidv4(),
-        content: todoContent,
-        dueDate: new Date().toISOString(),
-        status: "unfinished",
-      };
-
-      // read existing todos from todos db
+      // get existing todos from db
       const todosData = await extractDataFromDb<ITodo[]>("todos");
 
-      // add new todo to existing todos
-      todosData.push(newTodo);
+      const todoIndex = todosData.findIndex(todo => todo.id === updatedTodo.id);
+
+      // update todo in existing todos
+      todosData[todoIndex] = updatedTodo;
 
       await writeDataToDb("todos", todosData);
 
       response = {
-        data: newTodo,
-        message: "Added new todo item",
+        data: updatedTodo,
+        message: "Updated todo item",
         status: true,
       };
 
-      // return new todo
-      res.status(200).json(response);
+      // return updated todo
+      res.status(201).json(response);
     } catch (error) {
       response = {
         data: null,

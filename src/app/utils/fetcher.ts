@@ -1,6 +1,6 @@
 import { AppResponse } from "app/lib/app-response";
 
-type HttpMethods = "GET" | "POST" | "PUT" | "DELETE";
+export type HttpMethods = "GET" | "POST" | "PUT" | "DELETE";
 
 export const fetcher = async <T>(
   // default params for the fetcher

@@ -6,32 +6,26 @@ import { ITodo } from "todos/interfaces";
 export default async function handler(req: NextApiRequest, res: NextApiResponse<AppResponse<ITodo[]>>) {
   let response: AppResponse<ITodo[]>;
 
-  if (req.method !== "GET") {
-    response = {
-      data: [],
-      message: "only GET request is allowed on this route",
-      status: false,
-    };
+  // this handler should only handle GET requests
+  if (req.method === "GET") {
+    try {
+      const todos = await extractDataFromDb<ITodo[]>("todos");
 
-    res.status(405).json(response);
-  }
+      response = {
+        data: todos.reverse(),
+        message: "List of Todos",
+        status: true,
+      };
 
-  try {
-    const todos = await extractDataFromDb<ITodo[]>("todos");
-
-    response = {
-      data: todos,
-      message: "List of Todos",
-      status: true,
-    };
-
-    res.status(200).json(response);
-  } catch (error) {
-    response = {
-      data: [],
-      message: error as string,
-      status: false,
-    };
-    res.status(400).json(response);
+      res.status(200).json(response);
+    } catch (error) {
+      console.log("this is the error >>>", error);
+      response = {
+        data: [],
+        message: error as string,
+        status: false,
+      };
+      res.status(400).json(response);
+    }
   }
 }
