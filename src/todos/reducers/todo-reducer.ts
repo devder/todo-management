@@ -6,6 +6,12 @@ export const todoReducer = (state: ITodo[], action: TodoAction) => {
       return action.payload;
     case TodoActionType.CREATE_TODO:
       return action.payload.concat(state);
+    case TodoActionType.UPDATE_TODO:
+      const updatedTodo = action.payload[0];
+      // find todo in state
+      const todoIndex = state.findIndex(todo => todo.id === updatedTodo.id);
+      state[todoIndex] = updatedTodo;
+      return state;
 
     default:
       return state;

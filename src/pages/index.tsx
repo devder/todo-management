@@ -33,7 +33,7 @@ const Home: NextPage<Props> = ({ initialTodos }) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const res = await fetch(`${env.clientUrl}/api/todos/`, { method: "PUT" });
+    const res = await fetch(`${env.clientUrl}/api/todos/`);
     const { data, message, status } = (await res.json()) as AppResponse<ITodo[]>;
 
     return { props: { initialTodos: data, message, status } };

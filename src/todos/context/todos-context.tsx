@@ -9,12 +9,14 @@ type InitialStateType = {
   todos: ITodo[];
   getTodos: (inittialTodos: ITodo[]) => void;
   newTodo: (todoContent: string) => Promise<void>;
+  updateTodo: (todoContent: ITodo) => Promise<void>;
 };
 
 export const TodosContext = createContext<InitialStateType>({
   todos: initialState,
   getTodos: () => null,
   newTodo: () => new Promise<void>((_, __) => {}),
+  updateTodo: () => new Promise<void>((_, __) => {}),
 });
 
 interface TodosProviderProps {
@@ -40,5 +42,17 @@ export const TodosProvider: React.FC<TodosProviderProps> = ({ children }) => {
     }
   };
 
-  return <TodosContext.Provider value={{ todos, getTodos, newTodo }}>{children}</TodosContext.Provider>;
+  const updateTodo = async (updatedTodo: ITodo) => {
+    try {
+      const { data, status } = await fetcher<ITodo>("/api/todos/update-todo", "PUT", { updatedTodo });
+
+      if (status) {
+        dispatch({ type: TodoActionType.UPDATE_TODO, payload: [data] });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return <TodosContext.Provider value={{ todos, getTodos, newTodo, updateTodo }}>{children}</TodosContext.Provider>;
 };

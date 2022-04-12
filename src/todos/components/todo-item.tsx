@@ -3,6 +3,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import { IconButton } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { useContext, useState } from "react";
+import { TodosContext } from "todos/context/todos-context";
 import { ITodo } from "todos/interfaces";
 import styles from "todos/styles/todo-item.module.scss";
 
@@ -11,14 +13,27 @@ interface TodoItemProps {
 }
 
 export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
-  const isDone = todo.status === "done" ? true : false;
+  const { updateTodo } = useContext(TodosContext);
+  const [currentTodo, setCurrentTodo] = useState(todo);
+  const isDone = currentTodo.status === "done" ? true : false;
+
+  const handleUpdateTodo = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentTodo(prev => {
+      return {
+        ...prev,
+        status: event.target.checked ? "done" : "unfinished",
+      };
+    });
+
+    await updateTodo(currentTodo);
+  };
 
   return (
     <div className={styles.todo_row}>
       <FormControlLabel
         className={styles.todo_name}
-        label={todo.content}
-        control={<Checkbox checked={isDone} />}
+        label={currentTodo.content}
+        control={<Checkbox checked={isDone} onChange={handleUpdateTodo} />}
         sx={{ textDecoration: isDone ? "line-through" : "none" }}
       />
       <div className={styles.action_buttons}>

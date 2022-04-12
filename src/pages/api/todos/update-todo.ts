@@ -10,6 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   if (req.method === "PUT") {
     try {
       const updatedTodo = req.body.updatedTodo as ITodo;
+      console.log("updatedTodo >>>", updatedTodo);
 
       // get existing todos from db
       const todosData = await extractDataFromDb<ITodo[]>("todos");
