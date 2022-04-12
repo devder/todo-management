@@ -12,13 +12,11 @@ interface Props {
 }
 
 const Home: NextPage<Props> = ({ todos }) => {
-  console.log("todos >>>", todos);
-
   return (
     <Layout>
       <div className="container" style={{ margin: "auto" }}>
         <NewTodoForm />
-        <TodoList />
+        <TodoList todos={todos} />
       </div>
     </Layout>
   );

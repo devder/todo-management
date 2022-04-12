@@ -1,12 +1,15 @@
+import { ITodo } from "todos/interfaces";
 import { TodoItem } from "./todo-item";
 
-interface TodoListProps {}
+interface TodoListProps {
+  todos: ITodo[];
+}
 
-export const TodoList: React.FC<TodoListProps> = ({}) => {
+export const TodoList: React.FC<TodoListProps> = ({ todos }) => {
   return (
     <>
-      {[1, 2, 3].map(i => {
-        return <TodoItem key={i} />;
+      {todos.map(todo => {
+        return <TodoItem key={todo.id} todo={todo} />;
       })}
     </>
   );
