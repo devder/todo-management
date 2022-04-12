@@ -15,7 +15,7 @@ export const NewTodoForm: React.VFC = ({}) => {
         />
       </CardContent>
       <CardActions>
-        <Button variant="contained" startIcon={<AddCircleOutline />} className={styles.todo_form_button}>
+        <Button variant="contained" endIcon={<AddCircleOutline />} className={styles.todo_form_button}>
           Add Todo
         </Button>
       </CardActions>

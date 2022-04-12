@@ -3,6 +3,7 @@ import { Layout } from "app/components/layout";
 import { NewTodoForm } from "todos/components/new-todo-form";
 import { ITodo } from "todos/interfaces";
 import { AppResponse } from "app/lib/app-response";
+import { TodoList } from "todos/components/todo-list";
 
 interface Props {
   todos: ITodo[];
@@ -17,7 +18,7 @@ const Home: NextPage<Props> = ({ todos }) => {
     <Layout>
       <div className="container" style={{ margin: "auto" }}>
         <NewTodoForm />
-        Login to manage your todos
+        <TodoList />
       </div>
     </Layout>
   );
