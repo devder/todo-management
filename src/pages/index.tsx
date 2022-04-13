@@ -1,20 +1,30 @@
-import type { GetServerSideProps, NextPage } from "next";
 import { Layout } from "app/components/layout";
-import { NewTodoForm } from "todos/components/new-todo-form";
-import { ITodo } from "todos/interfaces";
 import { AppResponse } from "app/lib/app-response";
-import { TodoList } from "todos/components/todo-list";
+import env from "app/lib/environment";
+import type { GetServerSideProps, NextPage } from "next";
+import { useContext, useEffect } from "react";
+import NewTodoForm from "todos/components/new-todo-form";
+import TodoList from "todos/components/todo-list";
+import { TodosContext } from "todos/context/todos-context";
+import { ITodo } from "todos/interfaces";
 
 interface Props {
-  todos: ITodo[];
-  status: boolean;
-  message: string;
+  initialTodos: ITodo[];
+  status?: boolean;
+  message?: string;
 }
 
-const Home: NextPage<Props> = ({ todos }) => {
+const Home: NextPage<Props> = ({ initialTodos }) => {
+  const { todos, getTodos } = useContext(TodosContext);
+
+  useEffect(() => {
+    getTodos(initialTodos);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Layout>
-      <div className="container" style={{ margin: "auto" }}>
+      <div className="container">
         <NewTodoForm />
         <TodoList todos={todos} />
       </div>
@@ -24,12 +34,15 @@ const Home: NextPage<Props> = ({ todos }) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const res = await fetch("http://localhost:3001/api/todos/");
+    const res = await fetch(`${env.clientUrl}/api/todos/`);
     const { data, message, status } = (await res.json()) as AppResponse<ITodo[]>;
 
-    return { props: { todos: data, message, status } };
-  } catch (error) {
-    return { props: { message: "An unknown error occurred" } };
+    if (!status) {
+      throw new Error(message);
+    }
+    return { props: { initialTodos: data } };
+  } catch (e) {
+    return { props: { message: (e as string) || "An unknown error occurred" } };
   }
 };
 

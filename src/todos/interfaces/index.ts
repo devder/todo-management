@@ -14,5 +14,5 @@ export enum TodoActionType {
 
 export interface TodoAction {
   type: TodoActionType;
-  payload: ITodo;
+  payload: ITodo[];
 }
