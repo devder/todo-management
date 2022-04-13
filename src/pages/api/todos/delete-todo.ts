@@ -24,8 +24,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         status: true,
       };
 
-      // return updated todo
-      res.status(201).json(response);
+      // return updated todos list
+      res.status(204).json(response);
     } catch (error) {
       response = {
         data: null,

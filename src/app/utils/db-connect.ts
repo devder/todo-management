@@ -1,5 +1,5 @@
+import { readFile, writeFile } from "fs/promises";
 import path from "path";
-import { writeFile, readFile } from "fs/promises";
 
 type DbModelType = "todos" | "users";
 

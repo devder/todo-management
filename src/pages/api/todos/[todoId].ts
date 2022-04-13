@@ -8,50 +8,60 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   const todoId = req.query.todoId;
 
   try {
-    // get existing todos from db
-    const todosData = await extractDataFromDb<ITodo[]>("todos");
-
+    // ============ HANDLE FETCHING TODO ==============
     if (req.method === "GET") {
       const todosData = await extractDataFromDb<ITodo[]>("todos");
       const foundTodo = todosData.find(todo => todo.id === todoId);
 
-      if (foundTodo) {
-        response = {
-          data: foundTodo,
-          message: "Found todo item",
-          status: true,
-        };
-
-        // return found todo
-        res.status(200).json(response);
-      } else {
+      if (!foundTodo) {
         throw new Error("No todo found");
       }
+
+      response = {
+        data: foundTodo,
+        message: "Found todo item",
+        status: true,
+      };
+
+      // return found todo
+      res.status(200).json(response);
     }
 
-    if (req.method === "PUT") {
+    // ============ HANDLE UPDATING TODO ==============
+    else if (req.method === "PUT") {
+      const todosData = await extractDataFromDb<ITodo[]>("todos");
+
       const updatedTodo = req.body.updatedTodo as ITodo;
       // console.log("updatedTodo >>>", updatedTodo);
 
       const todoIndex = todosData.findIndex(todo => todo.id === todoId);
 
-      if (todoIndex !== -1) {
-        // update todo in existing todos
-        todosData[todoIndex] = updatedTodo;
-
-        await writeDataToDb("todos", todosData);
-
-        response = {
-          data: updatedTodo,
-          message: "Updated todo item",
-          status: true,
-        };
-
-        // return updated todo
-        res.status(201).json(response);
-      } else {
+      if (todoIndex === -1) {
         throw new Error("No todo found");
       }
+      // update todo in existing todos
+      todosData[todoIndex] = updatedTodo;
+
+      await writeDataToDb("todos", todosData);
+
+      response = {
+        data: updatedTodo,
+        message: "Updated todo item",
+        status: true,
+      };
+
+      // return updated todo
+      res.status(201).json(response);
+    }
+
+    // ============ RETURN ==============
+    else {
+      response = {
+        data: null,
+        message: "Only GET and PUT requests are allowed on this route",
+        status: false,
+      };
+      res.status(404).json(response);
     }
   } catch (error) {
     response = {

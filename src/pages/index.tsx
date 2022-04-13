@@ -35,11 +35,14 @@ const Home: NextPage<Props> = ({ initialTodos }) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const res = await fetch(`${env.clientUrl}/api/todos/`);
-    const { data } = (await res.json()) as AppResponse<ITodo[]>;
+    const { data, message, status } = (await res.json()) as AppResponse<ITodo[]>;
 
+    if (!status) {
+      throw new Error(message);
+    }
     return { props: { initialTodos: data } };
-  } catch (error) {
-    return { props: { message: "An unknown error occurred" } };
+  } catch (e) {
+    return { props: { message: (e as string) || "An unknown error occurred" } };
   }
 };
 

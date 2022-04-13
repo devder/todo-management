@@ -1,7 +1,7 @@
 import { Layout } from "app/components/layout";
 import { AppResponse } from "app/lib/app-response";
-import { GetServerSideProps, NextPage } from "next";
 import env from "app/lib/environment";
+import { GetServerSideProps, NextPage } from "next";
 import EditTodoForm from "todos/components/edit-todo-form";
 import { ITodo } from "todos/interfaces";
 
@@ -27,11 +27,16 @@ export const getServerSideProps: GetServerSideProps = async context => {
     const { todoId } = context.query;
 
     const res = await fetch(`${env.clientUrl}/api/todos/${todoId}`);
-    const { data } = (await res.json()) as AppResponse<ITodo>;
+    const { data, status, message } = (await res.json()) as AppResponse<ITodo>;
+
+    if (!status) {
+      throw new Error(message);
+    }
 
     return { props: { todo: data } };
-  } catch (error) {
-    return { props: { message: "An unknown error occurred" } };
+  } catch (e) {
+    // return { props: { message: (e as string) || "An unknown error occurred" } };
+    return { notFound: true };
   }
 };
 

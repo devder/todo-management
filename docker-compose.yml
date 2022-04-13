@@ -4,12 +4,12 @@ services:
   todo-management:
     container_name: todo-management
     ports:
-      - 3001:3000
+      - 3000:3000
     build:
       context: ./
       dockerfile: Dockerfile
     volumes:
-      - ./:/usr/src/app
-      - /usr/src/app/node_modules
-      - /usr/src/app/.next
+      - ./:/app
+      - /app/node_modules
+      - /app/.next
     env_file: .env.local

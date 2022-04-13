@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { ChangeEvent, useContext, useState } from "react";
 import { TodosContext } from "todos/context/todos-context";
 import { ITodo } from "todos/interfaces";
-import styles from "todos/styles/new-todo-form.module.scss";
+import styles from "todos/styles/todo-form.module.scss";
 
 interface FormProps {
   todo: ITodo;

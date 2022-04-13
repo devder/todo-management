@@ -1,7 +1,7 @@
-import type { AppProps } from "next/app";
-import "../styles/globals.scss";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import type { AppProps } from "next/app";
 import { TodosProvider } from "todos/context/todos-context";
+import "../styles/globals.scss";
 
 const theme = createTheme({
   typography: {
