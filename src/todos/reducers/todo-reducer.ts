@@ -12,6 +12,8 @@ export const todoReducer = (state: ITodo[], action: TodoAction) => {
       const todoIndex = state.findIndex(todo => todo.id === updatedTodo.id);
       state[todoIndex] = updatedTodo;
       return state;
+    case TodoActionType.DELETE_TODO:
+      return action.payload;
 
     default:
       return state;

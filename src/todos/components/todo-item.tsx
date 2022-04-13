@@ -13,7 +13,7 @@ interface TodoItemProps {
 }
 
 export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
-  const { updateTodo } = useContext(TodosContext);
+  const { updateTodo, deleteTodo } = useContext(TodosContext);
   const [currentTodo, setCurrentTodo] = useState(todo);
   const isDone = currentTodo.status === "done";
 
@@ -31,6 +31,10 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
     });
   };
 
+  const handleDeleteTodo = async () => {
+    await deleteTodo(currentTodo.id);
+  };
+
   return (
     <div className={styles.todo_row}>
       <FormControlLabel
@@ -43,7 +47,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         <IconButton aria-label="edit">
           <EditIcon />
         </IconButton>
-        <IconButton aria-label="delete" color="error">
+        <IconButton aria-label="delete" color="error" onClick={handleDeleteTodo}>
           <DeleteIcon />
         </IconButton>
       </div>
