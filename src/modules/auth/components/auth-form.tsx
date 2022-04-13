@@ -4,10 +4,17 @@ import Typography from "@mui/material/Typography";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Container } from "@mui/material";
-// import styles from "modules/auth/styles/auth-form.module.scss";
+import { Avatar, Container, Stack } from "@mui/material";
+import styles from "modules/auth/styles/auth-form.module.scss";
+import { useState } from "react";
 
 const AuthForm: React.FC = () => {
+  const [isSignIn, setIsSignIn] = useState(true);
+
+  const toggleAuthMode = () => {
+    setIsSignIn(prev => !prev);
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -21,46 +28,30 @@ const AuthForm: React.FC = () => {
     <Container component="main" maxWidth="xs">
       <Box
         sx={{
-          marginTop: 8,
+          mt: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
-        {/* <Avatar sx={{ m: 1, color: "inherit" }}> */}
-        <LockOutlinedIcon />
-        {/* </Avatar> */}
+        <Avatar className={styles.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          {isSignIn ? "Sign In" : "Sign Up"}
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          {/* <Button type="submit" fullWidth variant="contained" className={styles.auth_button}> */}
-          <Button type="submit" fullWidth variant="contained">
-            Sign In
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <TextField margin="normal" required fullWidth label="Email Address" name="email" autoFocus />
+          <TextField margin="normal" required fullWidth name="password" label="Password" type="password" />
+          <Button type="submit" fullWidth variant="contained" className={styles.auth_button}>
+            {isSignIn ? "Sign In" : "Sign Up"}
           </Button>
-          <Link href="#" variant="body2" sx={{ color: "inherit" }}>
-            {"Don't have an account? Sign Up"}
-          </Link>
+          <Stack spacing={1} direction="row" alignItems="center" justifyContent="space-between">
+            <Typography>{`Don't have an account ?`}</Typography>
+            <Button className={styles.alt_button} onClick={toggleAuthMode}>
+              {isSignIn ? "Sign Up" : "Sign In"}
+            </Button>
+          </Stack>
         </Box>
       </Box>
     </Container>

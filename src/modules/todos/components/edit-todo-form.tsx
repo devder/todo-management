@@ -60,27 +60,26 @@ const EditTodoForm: React.FC<FormProps> = ({ todo }) => {
   return (
     <Card className={styles.card}>
       <CardContent className={styles.card_content}>
-        <Stack spacing={2}>
-          <TextField
-            id="new-todo-form"
-            name="content"
-            label="Update todo..."
-            variant="outlined"
-            value={currentTodo.content}
-            error={error}
-            className={styles.todo_input}
-            onChange={handleInputChange}
+        <TextField
+          id="new-todo-form"
+          name="content"
+          label="Update todo..."
+          variant="outlined"
+          margin="normal"
+          value={currentTodo.content}
+          error={error}
+          className={styles.todo_input}
+          onChange={handleInputChange}
+        />
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <MobileDatePicker
+            label="Due Date"
+            inputFormat="DD/MM/YYYY"
+            value={currentTodo.dueDate}
+            onChange={handleDateChange}
+            renderInput={params => <TextField {...params} className={styles.todo_input} margin="normal" />}
           />
-          <LocalizationProvider dateAdapter={AdapterMoment}>
-            <MobileDatePicker
-              label="Due Date"
-              inputFormat="DD/MM/YYYY"
-              value={currentTodo.dueDate}
-              onChange={handleDateChange}
-              renderInput={params => <TextField {...params} className={styles.todo_input} />}
-            />
-          </LocalizationProvider>
-        </Stack>
+        </LocalizationProvider>
       </CardContent>
       <CardActions>
         <Stack spacing={5} direction="row">

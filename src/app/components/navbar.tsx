@@ -14,7 +14,7 @@ export const Navbar: React.VFC = () => {
         <Toolbar>
           <Link href="/" passHref>
             <Typography sx={{ flexGrow: 1 }} variant="h6" component="div">
-              Derick Todo
+              {`📝 Derick`}
             </Typography>
           </Link>
           <Stack>
@@ -24,7 +24,7 @@ export const Navbar: React.VFC = () => {
               sx={{ textTransform: "none" }}
               onClick={() => router.push("/auth")}
             >
-              Login
+              Sign In
             </Button>
           </Stack>
         </Toolbar>
