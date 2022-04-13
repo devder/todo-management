@@ -1,5 +1,5 @@
 import { AppResponse } from "app/lib/app-response";
-import { extractDataFromDb } from "app/utils/db-connect";
+import { DB } from "app/utils/db-connect";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ITodo } from "todos/interfaces";
 
@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   // this handler should only handle GET requests
   if (req.method === "GET") {
     try {
-      const todos = await extractDataFromDb<ITodo[]>("todos");
+      const todos = await DB.extractDataFromDb<ITodo[]>("todos");
 
       response = {
         data: todos.reverse(),
