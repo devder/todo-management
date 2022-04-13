@@ -1,11 +1,11 @@
 import { ITodo } from "todos/interfaces";
-import { TodoItem } from "./todo-item";
+import TodoItem from "./todo-item";
 
 interface TodoListProps {
   todos: ITodo[];
 }
 
-export const TodoList: React.FC<TodoListProps> = ({ todos }) => {
+const TodoList: React.FC<TodoListProps> = ({ todos }) => {
   return (
     <>
       {todos.map(todo => {
@@ -14,3 +14,5 @@ export const TodoList: React.FC<TodoListProps> = ({ todos }) => {
     </>
   );
 };
+
+export default TodoList;

@@ -16,10 +16,8 @@
   }
 }
 
-.todo_name,
-.todo_code {
+.todo_name {
   flex-grow: 1;
-
   & svg {
     color: var(--primary-color);
   }
