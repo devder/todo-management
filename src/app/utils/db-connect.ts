@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "fs/promises";
 import path from "path";
 
-type DbModelType = "todos" | "users";
+type DbModelType = "todos" | "auth";
 export class DB {
   // dynamically retrieve the path to the file storage
   static getDbPath = (model: string): string => {

@@ -1,13 +1,15 @@
 import { AppResponse } from "app/lib/app-response";
+import { AuthProps } from "modules/auth/interfaces";
 import { ITodo } from "modules/todos/interfaces";
 
 export type HttpMethods = "GET" | "POST" | "PUT" | "DELETE";
+export type FetcherBodyType = Record<string, string | ITodo | AuthProps | Record<string, string>>;
 
 export const fetcher = async <T>(
   // default params for the fetcher
   url: string,
   method: HttpMethods = "GET",
-  body: Record<string, string | ITodo> = {}
+  body: FetcherBodyType = {}
 ): Promise<AppResponse<T>> => {
   // fetch
   const res = await fetch(url, {
