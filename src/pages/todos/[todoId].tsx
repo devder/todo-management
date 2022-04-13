@@ -2,7 +2,7 @@ import { Layout } from "app/components/layout";
 import { AppResponse } from "app/lib/app-response";
 import { GetServerSideProps, NextPage } from "next";
 import env from "app/lib/environment";
-import NewTodoForm from "todos/components/new-todo-form";
+import EditTodoForm from "todos/components/edit-todo-form";
 import { ITodo } from "todos/interfaces";
 
 interface EditPageProps {
@@ -12,11 +12,11 @@ interface EditPageProps {
 const EditPage: NextPage<EditPageProps> = ({ todo }) => {
   if (!todo) {
   }
+
   return (
     <Layout>
       <div className="container">
-        <NewTodoForm />
-        {/* {todo.content} */}
+        <EditTodoForm todo={todo} />
       </div>
     </Layout>
   );

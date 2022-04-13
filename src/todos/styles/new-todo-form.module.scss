@@ -30,3 +30,9 @@
   text-transform: none;
   background-color: var(--primary-color);
 }
+
+.back_button {
+  text-transform: none;
+  // color: var(--primary-color);
+  color: "inherit";
+}
