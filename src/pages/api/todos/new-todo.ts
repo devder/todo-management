@@ -1,7 +1,7 @@
 import { AppResponse } from "app/lib/app-response";
 import { DB } from "app/utils/db-connect";
+import { ITodo } from "modules/todos/interfaces";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { ITodo } from "todos/interfaces";
 import { v4 as uuidv4 } from "uuid";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<AppResponse<ITodo | null>>) {

@@ -1,9 +1,9 @@
 import { Layout } from "app/components/layout";
 import { AppResponse } from "app/lib/app-response";
 import env from "app/lib/environment";
+import EditTodoForm from "modules/todos/components/edit-todo-form";
+import { ITodo } from "modules/todos/interfaces";
 import { GetServerSideProps, NextPage } from "next";
-import EditTodoForm from "todos/components/edit-todo-form";
-import { ITodo } from "todos/interfaces";
 
 interface EditPageProps {
   todo: ITodo;
@@ -11,10 +11,11 @@ interface EditPageProps {
 
 const EditPage: NextPage<EditPageProps> = ({ todo }) => {
   if (!todo) {
+    return <div className="container">Todo was not found</div>;
   }
 
   return (
-    <Layout>
+    <Layout title={todo.content.substring(0, 20) + "..."}>
       <div className="container">
         <EditTodoForm todo={todo} />
       </div>

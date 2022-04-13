@@ -1,5 +1,5 @@
 import { AppResponse } from "app/lib/app-response";
-import { ITodo } from "todos/interfaces";
+import { ITodo } from "modules/todos/interfaces";
 
 export type HttpMethods = "GET" | "POST" | "PUT" | "DELETE";
 

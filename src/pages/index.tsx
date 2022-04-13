@@ -1,12 +1,12 @@
 import { Layout } from "app/components/layout";
 import { AppResponse } from "app/lib/app-response";
 import env from "app/lib/environment";
+import NewTodoForm from "modules/todos/components/new-todo-form";
+import TodoList from "modules/todos/components/todo-list";
+import { TodosContext } from "modules/todos/context/todos-context";
+import { ITodo } from "modules/todos/interfaces";
 import type { GetServerSideProps, NextPage } from "next";
 import { useContext, useEffect } from "react";
-import NewTodoForm from "todos/components/new-todo-form";
-import TodoList from "todos/components/todo-list";
-import { TodosContext } from "todos/context/todos-context";
-import { ITodo } from "todos/interfaces";
 
 interface Props {
   initialTodos: ITodo[];

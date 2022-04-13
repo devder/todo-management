@@ -1,6 +1,6 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { TodosProvider } from "modules/todos/context/todos-context";
 import type { AppProps } from "next/app";
-import { TodosProvider } from "todos/context/todos-context";
 import "../styles/globals.scss";
 
 const theme = createTheme({
