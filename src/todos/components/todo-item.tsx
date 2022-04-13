@@ -3,6 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { IconButton } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { TodosContext } from "todos/context/todos-context";
 import { ITodo } from "todos/interfaces";
@@ -12,7 +13,8 @@ interface TodoItemProps {
   todo: ITodo;
 }
 
-export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
+  const router = useRouter();
   const { updateTodo, deleteTodo } = useContext(TodosContext);
   const [currentTodo, setCurrentTodo] = useState(todo);
   const isDone = currentTodo.status === "done";
@@ -35,6 +37,10 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
     await deleteTodo(currentTodo.id);
   };
 
+  const navigateToEditPage = () => {
+    router.push(`/todos/${currentTodo.id}`);
+  };
+
   return (
     <div className={styles.todo_row}>
       <FormControlLabel
@@ -44,7 +50,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         sx={{ textDecoration: isDone ? "line-through" : "none" }}
       />
       <div className={styles.action_buttons}>
-        <IconButton aria-label="edit">
+        <IconButton aria-label="edit" onClick={navigateToEditPage}>
           <EditIcon />
         </IconButton>
         <IconButton aria-label="delete" color="error" onClick={handleDeleteTodo}>
@@ -54,3 +60,5 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
     </div>
   );
 };
+
+export default TodoItem;

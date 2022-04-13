@@ -4,7 +4,7 @@ import { ChangeEvent, useContext, useState } from "react";
 import { TodosContext } from "todos/context/todos-context";
 import styles from "todos/styles/new-todo-form.module.scss";
 
-export const NewTodoForm: React.VFC = ({}) => {
+const NewTodoForm: React.VFC = ({}) => {
   const { newTodo } = useContext(TodosContext);
 
   const [todoContent, setTodoContent] = useState("");
@@ -53,3 +53,5 @@ export const NewTodoForm: React.VFC = ({}) => {
     </Card>
   );
 };
+
+export default NewTodoForm;

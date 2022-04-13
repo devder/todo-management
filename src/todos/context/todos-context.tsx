@@ -7,7 +7,7 @@ const initialState: ITodo[] = [];
 
 type InitialStateType = {
   todos: ITodo[];
-  getTodos: (inittialTodos: ITodo[]) => void;
+  getTodos: (initialTodos: ITodo[]) => void;
   newTodo: (todoContent: string) => Promise<void>;
   updateTodo: (todoContent: ITodo) => Promise<void>;
   deleteTodo: (todoId: string) => Promise<void>;
