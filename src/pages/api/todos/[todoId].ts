@@ -6,16 +6,16 @@ import { ITodo } from "todos/interfaces";
 export default async function handler(req: NextApiRequest, res: NextApiResponse<AppResponse<ITodo | null>>) {
   let response: AppResponse<ITodo | null>;
 
-  // this handler should only handle PUT requests
   if (req.method === "PUT") {
     try {
+      const todoId = req.query.todoId;
       const updatedTodo = req.body.updatedTodo as ITodo;
-      console.log("updatedTodo >>>", updatedTodo);
+      // console.log("updatedTodo >>>", updatedTodo);
 
       // get existing todos from db
       const todosData = await extractDataFromDb<ITodo[]>("todos");
 
-      const todoIndex = todosData.findIndex(todo => todo.id === updatedTodo.id);
+      const todoIndex = todosData.findIndex(todo => todo.id === todoId);
 
       // update todo in existing todos
       todosData[todoIndex] = updatedTodo;

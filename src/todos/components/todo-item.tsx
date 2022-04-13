@@ -15,9 +15,9 @@ interface TodoItemProps {
 export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const { updateTodo } = useContext(TodosContext);
   const [currentTodo, setCurrentTodo] = useState(todo);
-  const isDone = currentTodo.status === "done" ? true : false;
+  const isDone = currentTodo.status === "done";
 
-  const handleUpdateTodo = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const toggleTodoStatus = async (event: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentTodo(prev => {
       return {
         ...prev,
@@ -25,7 +25,10 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
       };
     });
 
-    await updateTodo(currentTodo);
+    await updateTodo({
+      ...currentTodo,
+      status: event.target.checked ? "done" : "unfinished",
+    });
   };
 
   return (
@@ -33,7 +36,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
       <FormControlLabel
         className={styles.todo_name}
         label={currentTodo.content}
-        control={<Checkbox checked={isDone} onChange={handleUpdateTodo} />}
+        control={<Checkbox checked={isDone} onChange={toggleTodoStatus} />}
         sx={{ textDecoration: isDone ? "line-through" : "none" }}
       />
       <div className={styles.action_buttons}>

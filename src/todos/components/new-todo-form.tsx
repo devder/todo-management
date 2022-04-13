@@ -20,6 +20,7 @@ export const NewTodoForm: React.VFC = ({}) => {
   const handleAddNewTodo = async () => {
     if (!todoContent.trim().length) {
       setError(true);
+      return;
     }
     await newTodo(todoContent);
     setTodoContent("");

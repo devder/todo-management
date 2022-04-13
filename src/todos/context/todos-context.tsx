@@ -44,7 +44,7 @@ export const TodosProvider: React.FC<TodosProviderProps> = ({ children }) => {
 
   const updateTodo = async (updatedTodo: ITodo) => {
     try {
-      const { data, status } = await fetcher<ITodo>("/api/todos/update-todo", "PUT", { updatedTodo });
+      const { data, status } = await fetcher<ITodo>(`/api/todos/${updatedTodo.id}`, "PUT", { updatedTodo });
 
       if (status) {
         dispatch({ type: TodoActionType.UPDATE_TODO, payload: [data] });
