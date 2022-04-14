@@ -50,7 +50,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         sx={{ textDecoration: isDone ? "line-through" : "none" }}
       />
       <div className={styles.action_buttons}>
-        <IconButton aria-label="edit" onClick={navigateToEditPage}>
+        <IconButton aria-label="edit" color="inherit" onClick={navigateToEditPage}>
           <EditIcon />
         </IconButton>
         <IconButton aria-label="delete" color="error" onClick={handleDeleteTodo}>

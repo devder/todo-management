@@ -58,7 +58,7 @@ const EditTodoForm: React.FC<FormProps> = ({ todo }) => {
   };
 
   return (
-    <Card className={styles.card}>
+    <Card className={styles.card} sx={{ backgroundColor: "inherit" }}>
       <CardContent className={styles.card_content}>
         <TextField
           id="new-todo-form"
@@ -92,7 +92,12 @@ const EditTodoForm: React.FC<FormProps> = ({ todo }) => {
             Cancel
           </Button>
 
-          <Button variant="contained" className={styles.todo_form_button} onClick={handleUpdateTodo}>
+          <Button
+            variant="contained"
+            className={styles.todo_form_button}
+            onClick={handleUpdateTodo}
+            sx={{ color: "white" }}
+          >
             Save
           </Button>
         </Stack>

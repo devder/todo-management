@@ -8,6 +8,9 @@ const theme = createTheme({
   typography: {
     fontFamily: ["Poppins", "sans-serif"].join(","),
   },
+  palette: {
+    mode: "dark",
+  },
 });
 
 function MyApp({ Component, pageProps }: AppProps) {

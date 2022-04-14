@@ -88,7 +88,7 @@ const AuthForm: React.FC = () => {
         }}
       >
         <Avatar className={styles.avatar}>
-          <LockOutlinedIcon />
+          <LockOutlinedIcon sx={{ color: "white" }} />
         </Avatar>
         <Typography component="h1" variant="h5">
           {isSignIn ? "Sign In" : "Sign Up"}
@@ -116,11 +116,11 @@ const AuthForm: React.FC = () => {
             error={authErrors.password.length > 0}
             helperText={authErrors.password}
           />
-          <Button type="submit" fullWidth variant="contained" className={styles.auth_button}>
+          <Button type="submit" fullWidth variant="contained" className={styles.auth_button} sx={{ color: "white" }}>
             {isSignIn ? "Sign In" : "Sign Up"}
           </Button>
           <Stack spacing={1} direction="row" alignItems="center" justifyContent="space-between">
-            <Typography>{`Don't have an account ?`}</Typography>
+            <Typography>{isSignIn ? "Don't have an account ?" : "Have an Account?"}</Typography>
             <Button className={styles.alt_button} onClick={toggleAuthMode}>
               {isSignIn ? "Sign Up" : "Sign In"}
             </Button>

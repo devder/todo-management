@@ -5,17 +5,24 @@ import { IUser } from "../interfaces/IUser";
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
-export const useUser = (): IUser | null => {
-  const { setUser } = useContext(AuthContext);
-  const { data, error } = useSWR("/api/auth/get-user", fetcher);
+export const useUser = () => {
+  const { setUser, clearUser } = useContext(AuthContext);
+  const { data } = useSWR("/api/auth/get-user", fetcher);
   const user = data?.data as IUser;
 
+  const isLoading = !data;
+
   useEffect(() => {
-    if (user) {
-      setUser(user);
+    if (!isLoading) {
+      if (user) {
+        setUser(user);
+      } else {
+        clearUser();
+      }
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  return error ? null : user;
+  return [user, isLoading];
 };

@@ -9,6 +9,7 @@ const initialState: IUser | null = null;
 type InitialStateType = {
   user: IUser | null;
   setUser: (user: IUser) => Promise<void>;
+  clearUser: () => void;
   signUp: (authProps: AuthProps) => Promise<{ status?: boolean; message?: string }>;
   signIn: (authProps: AuthProps) => Promise<{ status?: boolean; message?: string }>;
   signOut: () => Promise<void>;
@@ -17,6 +18,7 @@ type InitialStateType = {
 export const AuthContext = createContext<InitialStateType>({
   user: initialState,
   setUser: () => new Promise<void>((_, __) => {}),
+  clearUser: () => null,
   signUp: () => new Promise<{}>((_, __) => {}),
   signIn: () => new Promise<{}>((_, __) => {}),
   signOut: () => new Promise<void>((_, __) => {}),
@@ -31,6 +33,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const setUser = async (user: IUser) => {
     dispatch({ type: AuthActionType.AUTHENTICATE, payload: user });
+  };
+
+  const clearUser = async () => {
+    dispatch({ type: AuthActionType.SIGN_OUT, payload: null });
   };
 
   const signIn = async (authProps: AuthProps) => {
@@ -73,5 +79,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  return <AuthContext.Provider value={{ user, setUser, signIn, signUp, signOut }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, setUser, signIn, signUp, signOut, clearUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

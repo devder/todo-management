@@ -27,7 +27,7 @@ const NewTodoForm: React.VFC = ({}) => {
   };
 
   return (
-    <Card className={styles.card}>
+    <Card className={styles.card} sx={{ backgroundColor: "inherit" }}>
       <CardContent className={styles.card_content}>
         <TextField
           id="new-todo-form"
@@ -45,6 +45,7 @@ const NewTodoForm: React.VFC = ({}) => {
           variant="contained"
           endIcon={<AddCircleOutline />}
           className={styles.todo_form_button}
+          sx={{ color: "white" }}
           onClick={handleAddNewTodo}
         >
           Add Todo

@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import { Layout } from "app/components/layout";
+import { Loader } from "app/components/loader";
 import { AppResponse } from "app/lib/app-response";
 import env from "app/lib/environment";
 import { useUser } from "modules/auth/utils/use-user";
@@ -17,13 +18,22 @@ interface Props {
 }
 
 const Home: NextPage<Props> = ({ initialTodos }) => {
-  const user = useUser();
+  const [user, isLoading] = useUser();
   const { todos, getTodos } = useContext(TodosContext);
 
   useEffect(() => {
+    document.documentElement.setAttribute("data-theme", "dark");
     getTodos(initialTodos);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (isLoading) {
+    return (
+      <Layout>
+        <Loader />;
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
@@ -34,7 +44,9 @@ const Home: NextPage<Props> = ({ initialTodos }) => {
             <TodoList todos={todos} />
           </>
         ) : (
-          <Typography>Sign in to view todos</Typography>
+          <Typography align="center" variant="h4" sx={{ mt: 6 }}>
+            Sign in to view todos
+          </Typography>
         )}
       </div>
     </Layout>

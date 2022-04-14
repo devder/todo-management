@@ -6,6 +6,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import BrightnessIcon from "@mui/icons-material/Brightness6";
 import { FC, useState } from "react";
 
 interface AccountMenuProps {
@@ -41,7 +43,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ username, signOut, navigateToAuth }
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>{username[0].toUpperCase()}</Avatar>
+          <Avatar sx={{ color: "white" }}>{username[0].toUpperCase()}</Avatar>
         </IconButton>
       </Tooltip>
       <Menu
@@ -80,10 +82,18 @@ const AccountMenu: FC<AccountMenuProps> = ({ username, signOut, navigateToAuth }
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem>
-          <Avatar /> {username}
+          <ListItemIcon>
+            <AccountCircleIcon fontSize="small" />
+          </ListItemIcon>
+          {username}
         </MenuItem>
         <Divider />
-
+        <MenuItem onClick={handleSignOut}>
+          <ListItemIcon>
+            <BrightnessIcon fontSize="small" />
+          </ListItemIcon>
+          Theme
+        </MenuItem>
         <MenuItem onClick={handleSignOut}>
           <ListItemIcon>
             <Logout fontSize="small" />
