@@ -7,7 +7,7 @@ export enum AuthActionType {
 
 export interface AuthAction {
   type: AuthActionType;
-  payload: IUser;
+  payload: IUser | null;
 }
 
 export interface AuthProps {

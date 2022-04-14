@@ -13,8 +13,8 @@ export const fetcher = async <T>(
 ): Promise<AppResponse<T>> => {
   // fetch
   const res = await fetch(url, {
-    body: JSON.stringify(body),
     method,
+    body: method === "GET" ? null : JSON.stringify(body),
     mode: "cors",
     credentials: "same-origin",
     headers: {

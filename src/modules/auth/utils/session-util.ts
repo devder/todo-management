@@ -8,7 +8,7 @@ export class SessionUtil {
   static cookieMaxAge = 60 * 60 * 24; // 1 day
   static cookieName = "sid";
 
-  static async setSession(res: NextApiResponse, user: IUser) {
+  static setSession(res: NextApiResponse, user: IUser) {
     // generate jsonwebtoken, store on the cookie object,
     const userJWT = jwt.sign({ id: user.id, username: user.username }, env.jwtKey);
 
@@ -19,6 +19,15 @@ export class SessionUtil {
       path: "/",
       sameSite: "strict", // protect against csrf
       httpOnly: true, // makes the cookie unaccessible in the js code on the front end
+    });
+
+    res.setHeader("Set-Cookie", cookie);
+  }
+
+  static invalidateSession(res: NextApiResponse) {
+    const cookie = serialize(this.cookieName, "", {
+      maxAge: -1,
+      path: "/",
     });
 
     res.setHeader("Set-Cookie", cookie);

@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
       const user = await validateUser(authProps);
 
-      await SessionUtil.setSession(res, user);
+      SessionUtil.setSession(res, user);
 
       response = {
         data: user,

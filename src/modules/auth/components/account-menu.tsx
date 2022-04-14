@@ -6,17 +6,30 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
-import { useState } from "react";
+import { FC, useState } from "react";
 
-export default function AccountMenu() {
+interface AccountMenuProps {
+  username: string;
+  signOut: () => Promise<void>;
+  navigateToAuth: () => void;
+}
+
+const AccountMenu: FC<AccountMenuProps> = ({ username, signOut, navigateToAuth }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigateToAuth();
+  };
+
   return (
     <>
       <Tooltip title="Account settings">
@@ -28,7 +41,7 @@ export default function AccountMenu() {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>A</Avatar>
+          <Avatar sx={{ width: 32, height: 32 }}>{username[0].toUpperCase()}</Avatar>
         </IconButton>
       </Tooltip>
       <Menu
@@ -67,15 +80,11 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem>
-          <Avatar /> Profile
+          <Avatar /> {username}
         </MenuItem>
         <Divider />
 
-        <MenuItem
-          onClick={() => {
-            console.log("clicked");
-          }}
-        >
+        <MenuItem onClick={handleSignOut}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
@@ -84,4 +93,6 @@ export default function AccountMenu() {
       </Menu>
     </>
   );
-}
+};
+
+export default AccountMenu;

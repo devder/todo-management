@@ -11,9 +11,11 @@ import AccountMenu from "../../modules/auth/components/account-menu";
 
 export const Navbar: React.VFC = () => {
   const router = useRouter();
-  const { user } = useContext(AuthContext);
+  const { user, signOut } = useContext(AuthContext);
 
-  console.log(user);
+  const navigateToAuth = () => {
+    router.push("/auth");
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -26,14 +28,9 @@ export const Navbar: React.VFC = () => {
           </Link>
           <Stack>
             {user ? (
-              <AccountMenu />
+              <AccountMenu signOut={signOut} username={user.username} navigateToAuth={navigateToAuth} />
             ) : (
-              <Button
-                variant="outlined"
-                color="inherit"
-                sx={{ textTransform: "none" }}
-                onClick={() => router.push("/auth")}
-              >
+              <Button variant="outlined" color="inherit" sx={{ textTransform: "none" }} onClick={navigateToAuth}>
                 Sign In
               </Button>
             )}

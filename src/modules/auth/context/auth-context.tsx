@@ -57,10 +57,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signOut = async () => {
     try {
-      const { data, status } = await fetcher<IUser>("/api/auth/sign-up", "POST");
+      const { status } = await fetcher("/api/auth/sign-out");
 
       if (status) {
-        // dispatch({ type: AuthActionType.SIGN_IN, payload: [data] });
+        dispatch({ type: AuthActionType.SIGN_OUT, payload: null });
       }
     } catch (error) {
       console.error(error);
