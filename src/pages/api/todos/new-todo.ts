@@ -1,7 +1,7 @@
 import { AppResponse } from "app/lib/app-response";
-import { extractDataFromDb, writeDataToDb } from "app/utils/db-connect";
+import { DB } from "app/utils/db-connect";
+import { ITodo } from "modules/todos/interfaces";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { ITodo } from "todos/interfaces";
 import { v4 as uuidv4 } from "uuid";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<AppResponse<ITodo | null>>) {
@@ -20,12 +20,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       };
 
       // read existing todos from todos db
-      const todosData = await extractDataFromDb<ITodo[]>("todos");
+      const todosData = await DB.extractDataFromDb<ITodo[]>("todos");
 
       // add new todo to existing todos
       todosData.push(newTodo);
 
-      await writeDataToDb("todos", todosData);
+      await DB.writeDataToDb("todos", todosData);
 
       response = {
         data: newTodo,

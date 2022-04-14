@@ -1,4 +1,4 @@
-import { ITodo } from "todos/interfaces";
+import { ITodo } from "modules/todos/interfaces";
 import TodoItem from "./todo-item";
 
 interface TodoListProps {

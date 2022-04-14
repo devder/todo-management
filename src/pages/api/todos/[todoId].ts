@@ -1,7 +1,7 @@
 import { AppResponse } from "app/lib/app-response";
-import { extractDataFromDb, writeDataToDb } from "app/utils/db-connect";
+import { DB } from "app/utils/db-connect";
+import { ITodo } from "modules/todos/interfaces";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { ITodo } from "todos/interfaces";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<AppResponse<ITodo | null>>) {
   let response: AppResponse<ITodo | null>;
@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   try {
     // ============ HANDLE FETCHING TODO ==============
     if (req.method === "GET") {
-      const todosData = await extractDataFromDb<ITodo[]>("todos");
+      const todosData = await DB.extractDataFromDb<ITodo[]>("todos");
       const foundTodo = todosData.find(todo => todo.id === todoId);
 
       if (!foundTodo) {
@@ -29,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     // ============ HANDLE UPDATING TODO ==============
     else if (req.method === "PUT") {
-      const todosData = await extractDataFromDb<ITodo[]>("todos");
+      const todosData = await DB.extractDataFromDb<ITodo[]>("todos");
 
       const updatedTodo = req.body.updatedTodo as ITodo;
       // console.log("updatedTodo >>>", updatedTodo);
@@ -42,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       // update todo in existing todos
       todosData[todoIndex] = updatedTodo;
 
-      await writeDataToDb("todos", todosData);
+      await DB.writeDataToDb("todos", todosData);
 
       response = {
         data: updatedTodo,

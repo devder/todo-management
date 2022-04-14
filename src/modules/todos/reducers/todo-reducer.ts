@@ -1,4 +1,4 @@
-import { ITodo, TodoAction, TodoActionType } from "todos/interfaces";
+import { ITodo, TodoAction, TodoActionType } from "modules/todos/interfaces";
 
 export const todoReducer = (state: ITodo[], action: TodoAction) => {
   switch (action.type) {

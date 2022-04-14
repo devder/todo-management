@@ -1,7 +1,7 @@
 import { AppResponse } from "app/lib/app-response";
-import { extractDataFromDb, writeDataToDb } from "app/utils/db-connect";
+import { DB } from "app/utils/db-connect";
+import { ITodo } from "modules/todos/interfaces";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { ITodo } from "todos/interfaces";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<AppResponse<ITodo[] | null>>) {
   let response: AppResponse<ITodo[] | null>;
@@ -11,12 +11,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       const todoId = req.body.todoId as string;
 
       // get existing todos from db
-      const todosData = await extractDataFromDb<ITodo[]>("todos");
+      const todosData = await DB.extractDataFromDb<ITodo[]>("todos");
 
       // remove selected todo from the collection
       const filteredTodos = todosData.filter(todo => todo.id !== todoId);
 
-      await writeDataToDb("todos", filteredTodos);
+      await DB.writeDataToDb("todos", filteredTodos);
 
       response = {
         data: filteredTodos.reverse(),
@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       };
 
       // return updated todos list
-      res.status(204).json(response);
+      res.status(200).json(response);
     } catch (error) {
       response = {
         data: null,

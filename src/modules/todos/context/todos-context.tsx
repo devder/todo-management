@@ -1,7 +1,7 @@
 import { fetcher } from "app/utils/fetcher";
+import { ITodo, TodoActionType } from "modules/todos/interfaces";
+import { todoReducer } from "modules/todos/reducers/todo-reducer";
 import { createContext, useReducer } from "react";
-import { ITodo, TodoActionType } from "todos/interfaces";
-import { todoReducer } from "todos/reducers/todo-reducer";
 
 const initialState: ITodo[] = [];
 
