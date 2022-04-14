@@ -4,11 +4,11 @@ import Stack from "@mui/material/Stack";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import { TodosContext } from "modules/todos/context/todos-context";
+import { ITodo } from "modules/todos/interfaces";
 import { useRouter } from "next/router";
 import { ChangeEvent, useContext, useState } from "react";
-import { TodosContext } from "todos/context/todos-context";
-import { ITodo } from "todos/interfaces";
-import styles from "todos/styles/todo-form.module.scss";
+import styles from "modules/todos/styles/todo-form.module.scss";
 
 interface FormProps {
   todo: ITodo;
@@ -58,29 +58,28 @@ const EditTodoForm: React.FC<FormProps> = ({ todo }) => {
   };
 
   return (
-    <Card className={styles.card}>
+    <Card className={styles.card} sx={{ backgroundColor: "inherit" }}>
       <CardContent className={styles.card_content}>
-        <Stack spacing={2}>
-          <TextField
-            id="new-todo-form"
-            name="content"
-            label="Update todo..."
-            variant="outlined"
-            value={currentTodo.content}
-            error={error}
-            className={styles.todo_input}
-            onChange={handleInputChange}
+        <TextField
+          id="new-todo-form"
+          name="content"
+          label="Update todo..."
+          variant="outlined"
+          margin="normal"
+          value={currentTodo.content}
+          error={error}
+          className={styles.todo_input}
+          onChange={handleInputChange}
+        />
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <MobileDatePicker
+            label="Due Date"
+            inputFormat="DD/MM/YYYY"
+            value={currentTodo.dueDate}
+            onChange={handleDateChange}
+            renderInput={params => <TextField {...params} className={styles.todo_input} margin="normal" />}
           />
-          <LocalizationProvider dateAdapter={AdapterMoment}>
-            <MobileDatePicker
-              label="Due Date"
-              inputFormat="DD/MM/YYYY"
-              value={currentTodo.dueDate}
-              onChange={handleDateChange}
-              renderInput={params => <TextField {...params} className={styles.todo_input} />}
-            />
-          </LocalizationProvider>
-        </Stack>
+        </LocalizationProvider>
       </CardContent>
       <CardActions>
         <Stack spacing={5} direction="row">
@@ -93,7 +92,12 @@ const EditTodoForm: React.FC<FormProps> = ({ todo }) => {
             Cancel
           </Button>
 
-          <Button variant="contained" className={styles.todo_form_button} onClick={handleUpdateTodo}>
+          <Button
+            variant="contained"
+            className={styles.todo_form_button}
+            onClick={handleUpdateTodo}
+            sx={{ color: "white" }}
+          >
             Save
           </Button>
         </Stack>

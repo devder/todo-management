@@ -15,6 +15,17 @@
   --box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+[data-theme="dark"] {
+  --text-color: #f0f0f0;
+  --text-color-secondary: #b3c5cd;
+
+  --primary-color: #194583;
+
+  --background-color: #252329;
+  --background-color-dark: #3c393f;
+  --background-color-light: #120f13;
+}
+
 html,
 body {
   padding: 0;
@@ -39,7 +50,7 @@ main {
   padding: 1rem 0;
 }
 
-.app_bar {
+#app_bar {
   background-color: var(--primary-color);
 }
 

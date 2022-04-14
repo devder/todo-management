@@ -1,22 +1,20 @@
+import { Typography } from "@mui/material";
 import { Layout } from "app/components/layout";
 import { AppResponse } from "app/lib/app-response";
 import env from "app/lib/environment";
+import EditTodoForm from "modules/todos/components/edit-todo-form";
+import { ITodo } from "modules/todos/interfaces";
 import { GetServerSideProps, NextPage } from "next";
-import EditTodoForm from "todos/components/edit-todo-form";
-import { ITodo } from "todos/interfaces";
 
 interface EditPageProps {
   todo: ITodo;
 }
 
 const EditPage: NextPage<EditPageProps> = ({ todo }) => {
-  if (!todo) {
-  }
-
   return (
-    <Layout>
+    <Layout title={todo.content.substring(0, 20) + "..."}>
       <div className="container">
-        <EditTodoForm todo={todo} />
+        {!todo ? <Typography variant="h4">Todo was not found</Typography> : <EditTodoForm todo={todo} />}
       </div>
     </Layout>
   );
@@ -35,7 +33,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     return { props: { todo: data } };
   } catch (e) {
-    // return { props: { message: (e as string) || "An unknown error occurred" } };
     return { notFound: true };
   }
 };

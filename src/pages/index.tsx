@@ -1,12 +1,15 @@
+import { Typography } from "@mui/material";
 import { Layout } from "app/components/layout";
+import { Loader } from "app/components/loader";
 import { AppResponse } from "app/lib/app-response";
 import env from "app/lib/environment";
+import { useUser } from "modules/auth/utils/use-user";
+import NewTodoForm from "modules/todos/components/new-todo-form";
+import TodoList from "modules/todos/components/todo-list";
+import { TodosContext } from "modules/todos/context/todos-context";
+import { ITodo } from "modules/todos/interfaces";
 import type { GetServerSideProps, NextPage } from "next";
 import { useContext, useEffect } from "react";
-import NewTodoForm from "todos/components/new-todo-form";
-import TodoList from "todos/components/todo-list";
-import { TodosContext } from "todos/context/todos-context";
-import { ITodo } from "todos/interfaces";
 
 interface Props {
   initialTodos: ITodo[];
@@ -15,6 +18,7 @@ interface Props {
 }
 
 const Home: NextPage<Props> = ({ initialTodos }) => {
+  const [user, isLoading] = useUser();
   const { todos, getTodos } = useContext(TodosContext);
 
   useEffect(() => {
@@ -22,11 +26,27 @@ const Home: NextPage<Props> = ({ initialTodos }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (isLoading) {
+    return (
+      <Layout>
+        <Loader />;
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
       <div className="container">
-        <NewTodoForm />
-        <TodoList todos={todos} />
+        {user ? (
+          <>
+            <NewTodoForm />
+            <TodoList todos={todos} />
+          </>
+        ) : (
+          <Typography align="center" variant="h4" sx={{ mt: 6 }}>
+            Sign in to view todos
+          </Typography>
+        )}
       </div>
     </Layout>
   );

@@ -3,11 +3,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import { IconButton } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { TodosContext } from "modules/todos/context/todos-context";
+import { ITodo } from "modules/todos/interfaces";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
-import { TodosContext } from "todos/context/todos-context";
-import { ITodo } from "todos/interfaces";
-import styles from "todos/styles/todo-item.module.scss";
+import styles from "modules/todos/styles/todo-item.module.scss";
 
 interface TodoItemProps {
   todo: ITodo;
@@ -50,7 +50,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         sx={{ textDecoration: isDone ? "line-through" : "none" }}
       />
       <div className={styles.action_buttons}>
-        <IconButton aria-label="edit" onClick={navigateToEditPage}>
+        <IconButton aria-label="edit" color="inherit" onClick={navigateToEditPage}>
           <EditIcon />
         </IconButton>
         <IconButton aria-label="delete" color="error" onClick={handleDeleteTodo}>
