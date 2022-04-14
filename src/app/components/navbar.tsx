@@ -19,7 +19,7 @@ export const Navbar: React.VFC = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" className="app_bar">
+      <AppBar position="fixed" id="app_bar">
         <Toolbar>
           <Link href="/" passHref>
             <Typography sx={{ flexGrow: 1 }} variant="h6" component="div">

@@ -8,7 +8,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import BrightnessIcon from "@mui/icons-material/Brightness6";
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
+import { CustomThemeContext } from "app/components/custom-theme-context";
 
 interface AccountMenuProps {
   username: string;
@@ -17,6 +18,7 @@ interface AccountMenuProps {
 }
 
 const AccountMenu: FC<AccountMenuProps> = ({ username, signOut, navigateToAuth }) => {
+  const { toggleColorMode } = useContext(CustomThemeContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -88,7 +90,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ username, signOut, navigateToAuth }
           {username}
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleSignOut}>
+        <MenuItem onClick={toggleColorMode}>
           <ListItemIcon>
             <BrightnessIcon fontSize="small" />
           </ListItemIcon>

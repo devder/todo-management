@@ -22,7 +22,6 @@ const Home: NextPage<Props> = ({ initialTodos }) => {
   const { todos, getTodos } = useContext(TodosContext);
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", "dark");
     getTodos(initialTodos);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
