@@ -8,46 +8,50 @@ const initialState: IUser | null = null;
 
 type InitialStateType = {
   user: IUser | null;
-  signUp: (authProps: AuthProps) => Promise<void>;
-  signIn: (authProps: AuthProps) => Promise<void>;
+  signUp: (authProps: AuthProps) => Promise<{ status?: boolean; message?: string }>;
+  signIn: (authProps: AuthProps) => Promise<{ status?: boolean; message?: string }>;
   signOut: () => Promise<void>;
 };
 
-export const UserContext = createContext<InitialStateType>({
+export const AuthContext = createContext<InitialStateType>({
   user: initialState,
-  signUp: () => new Promise<void>((_, __) => {}),
-  signIn: () => new Promise<void>((_, __) => {}),
+  signUp: () => new Promise<{}>((_, __) => {}),
+  signIn: () => new Promise<{}>((_, __) => {}),
   signOut: () => new Promise<void>((_, __) => {}),
 });
 
-interface TodosProviderProps {
+interface AuthProviderProps {
   children: React.ReactNode;
   value: IUser;
 }
-export const TodosProvider: React.FC<TodosProviderProps> = ({ children }) => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, dispatch] = useReducer(authReducer, initialState);
 
   const signIn = async (authProps: AuthProps) => {
     try {
-      const { data, status } = await fetcher<IUser>("/api/auth/sign-in", "POST", { authProps });
+      const { data, status, message } = await fetcher<IUser>("/api/auth/sign-in", "POST", { authProps });
 
       if (status) {
         dispatch({ type: AuthActionType.AUTHENTICATE, payload: data });
       }
+      return { status, message };
     } catch (error) {
       console.error(error);
+      return { status: false, message: "Something went wrong" };
     }
   };
 
   const signUp = async (authProps: AuthProps) => {
     try {
-      const { data, status } = await fetcher<IUser>("/api/auth/sign-up", "POST", { authProps });
+      const { data, status, message } = await fetcher<IUser>("/api/auth/sign-up", "POST", { authProps });
 
       if (status) {
         dispatch({ type: AuthActionType.AUTHENTICATE, payload: data });
       }
+      return { status, message };
     } catch (error) {
       console.error(error);
+      return { status: false, message: "Something went wrong" };
     }
   };
 
@@ -63,5 +67,5 @@ export const TodosProvider: React.FC<TodosProviderProps> = ({ children }) => {
     }
   };
 
-  return <UserContext.Provider value={{ user, signIn, signUp, signOut }}>{children}</UserContext.Provider>;
+  return <AuthContext.Provider value={{ user, signIn, signUp, signOut }}>{children}</AuthContext.Provider>;
 };

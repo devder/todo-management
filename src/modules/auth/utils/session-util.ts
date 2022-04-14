@@ -9,7 +9,7 @@ export class SessionUtil {
   static cookieName = "sid";
 
   static async setSession(res: NextApiResponse, user: IUser) {
-    // generate jsonwebtoken, store on the session object,
+    // generate jsonwebtoken, store on the cookie object,
     const userJWT = jwt.sign({ id: user.id, username: user.username }, env.jwtKey);
 
     const cookie = serialize(this.cookieName, userJWT, {

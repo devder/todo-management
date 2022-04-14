@@ -23,13 +23,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       };
       res.status(201).json(response);
     } catch (error) {
-      console.error(error);
       response = {
         data: null,
-        message: error as string,
+        message: "Server Error",
         status: false,
       };
-      res.status(400).json(response);
+      res.status(500).json(response);
     }
   }
 }

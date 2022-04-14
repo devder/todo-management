@@ -1,4 +1,5 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { AuthProvider } from "modules/auth/context/auth-context";
 import { TodosProvider } from "modules/todos/context/todos-context";
 import type { AppProps } from "next/app";
 import "../styles/globals.scss";
@@ -10,13 +11,15 @@ const theme = createTheme({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { todos, ...otherPageProps } = pageProps;
+  const { user, todos, ...otherPageProps } = pageProps;
 
   return (
     <ThemeProvider theme={theme}>
-      <TodosProvider value={todos}>
-        <Component {...otherPageProps} />;
-      </TodosProvider>
+      <AuthProvider value={user}>
+        <TodosProvider value={todos}>
+          <Component {...otherPageProps} />;
+        </TodosProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
