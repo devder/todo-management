@@ -14,7 +14,7 @@ export const fetcher = async <T>(
   // fetch
   const res = await fetch(url, {
     body: JSON.stringify(body),
-    method: method,
+    method,
     mode: "cors",
     credentials: "same-origin",
     headers: {
