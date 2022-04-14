@@ -32,7 +32,7 @@ export const TodosProvider: React.FC<TodosProviderProps> = ({ children }) => {
       const { data, status } = await fetcher<IUser>("/api/auth/sign-in", "POST", { authProps });
 
       if (status) {
-        dispatch({ type: AuthActionType.SIGN_IN, payload: data });
+        dispatch({ type: AuthActionType.AUTHENTICATE, payload: data });
       }
     } catch (error) {
       console.error(error);
@@ -44,7 +44,7 @@ export const TodosProvider: React.FC<TodosProviderProps> = ({ children }) => {
       const { data, status } = await fetcher<IUser>("/api/auth/sign-up", "POST", { authProps });
 
       if (status) {
-        // dispatch({ type: AuthActionType.SIGN_IN, payload: [data] });
+        dispatch({ type: AuthActionType.AUTHENTICATE, payload: data });
       }
     } catch (error) {
       console.error(error);

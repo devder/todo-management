@@ -1,7 +1,7 @@
 import { IUser } from "./IUser";
 
 export enum AuthActionType {
-  SIGN_IN = "SIGN_IN",
+  AUTHENTICATE = "AUTHENTICATE",
   SIGN_OUT = "SIGN_OUT",
 }
 
