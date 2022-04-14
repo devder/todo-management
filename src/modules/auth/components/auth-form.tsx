@@ -26,6 +26,16 @@ const AuthForm: React.FC = () => {
     setIsSignIn(prev => !prev);
   };
 
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (authErrors.username.length || authErrors.password.length) {
+      setAuthErrors({ username: "", password: "" });
+    }
+    setAuthInfo({
+      ...authInfo,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -59,23 +69,12 @@ const AuthForm: React.FC = () => {
 
     if (response.status) {
       router.replace("/");
-      return;
     } else {
       setAuthErrors({
         password: response.message!,
         username: response.message!,
       });
     }
-  };
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (authErrors.username.length || authErrors.password.length) {
-      setAuthErrors({ username: "", password: "" });
-    }
-    setAuthInfo({
-      ...authInfo,
-      [e.target.name]: e.target.value,
-    });
   };
 
   return (

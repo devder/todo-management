@@ -1,3 +1,4 @@
+import { ErrorCode } from "app/lib/error-code";
 import { DB } from "app/utils/db-connect";
 import { v4 as uuidv4 } from "uuid";
 import { AuthProps } from "../interfaces";
@@ -6,6 +7,16 @@ import { Password } from "./password-util";
 
 export const buildUser = async (authProps: AuthProps) => {
   const { username, password } = authProps;
+
+  // read users from db
+  const usersData = await DB.extractDataFromDb<IUser[]>("auth");
+
+  const existingUser = usersData.find(user => user.username === username);
+
+  if (existingUser) {
+    throw new Error(ErrorCode.AlreadyExists);
+  }
+
   const hashedPassword = await Password.toHash(password);
 
   const newUser: IUser = {
@@ -15,10 +26,7 @@ export const buildUser = async (authProps: AuthProps) => {
     createdAt: new Date().toISOString(),
   };
 
-  // read users from db
-  const usersData = await DB.extractDataFromDb<IUser[]>("auth");
   usersData.push(newUser);
-
   await DB.writeDataToDb("auth", usersData);
 
   delete newUser.password;
