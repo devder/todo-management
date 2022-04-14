@@ -1,6 +1,8 @@
+import { Typography } from "@mui/material";
 import { Layout } from "app/components/layout";
 import { AppResponse } from "app/lib/app-response";
 import env from "app/lib/environment";
+import { useUser } from "modules/auth/utils/use-user";
 import NewTodoForm from "modules/todos/components/new-todo-form";
 import TodoList from "modules/todos/components/todo-list";
 import { TodosContext } from "modules/todos/context/todos-context";
@@ -15,6 +17,7 @@ interface Props {
 }
 
 const Home: NextPage<Props> = ({ initialTodos }) => {
+  const user = useUser();
   const { todos, getTodos } = useContext(TodosContext);
 
   useEffect(() => {
@@ -25,8 +28,14 @@ const Home: NextPage<Props> = ({ initialTodos }) => {
   return (
     <Layout>
       <div className="container">
-        <NewTodoForm />
-        <TodoList todos={todos} />
+        {user ? (
+          <>
+            <NewTodoForm />
+            <TodoList todos={todos} />
+          </>
+        ) : (
+          <Typography>Sign in to view todos</Typography>
+        )}
       </div>
     </Layout>
   );
