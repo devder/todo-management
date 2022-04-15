@@ -8,7 +8,7 @@
 npm install
 ```
 
-4. Create a .env.local file and add [`JWT_KEY`] with a value of your choice.
+4. Create a `.env.local` file and add `JWT_KEY` with a value of your choice.
 5. Start the development server.
 
 ```bash
