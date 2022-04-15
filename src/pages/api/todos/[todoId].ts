@@ -1,4 +1,5 @@
 import { AppResponse } from "app/lib/app-response";
+import { ErrorCode } from "app/lib/error-code";
 import { DB } from "app/utils/db-connect";
 import { ITodo } from "modules/todos/interfaces";
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -14,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       const foundTodo = todosData.find(todo => todo.id === todoId);
 
       if (!foundTodo) {
-        throw new Error("No todo found");
+        throw new Error(ErrorCode.NotFound);
       }
 
       response = {
@@ -32,12 +33,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       const todosData = await DB.extractDataFromDb<ITodo[]>("todos");
 
       const updatedTodo = req.body.updatedTodo as ITodo;
-      // console.log("updatedTodo >>>", updatedTodo);
+
+      const isValid =
+        typeof updatedTodo.id === "string" &&
+        updatedTodo.id.length &&
+        typeof updatedTodo.content === "string" &&
+        updatedTodo.content.length &&
+        typeof updatedTodo.dueDate === "string" &&
+        updatedTodo.dueDate.length &&
+        (updatedTodo.status === "unfinished" || updatedTodo.status === "done");
+
+      if (!isValid) {
+        throw new Error(ErrorCode.Forbidden);
+      }
 
       const todoIndex = todosData.findIndex(todo => todo.id === todoId);
 
       if (todoIndex === -1) {
-        throw new Error("No todo found");
+        throw new Error(ErrorCode.NotFound);
       }
       // update todo in existing todos
       todosData[todoIndex] = updatedTodo;
@@ -54,14 +67,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       res.status(201).json(response);
     }
 
-    // ============ RETURN ==============
+    // ============ Only allow GET and PUT requests ==========
     else {
       response = {
         data: null,
-        message: "Only GET and PUT requests are allowed on this route",
+        message: "Method not allowed",
         status: false,
       };
-      res.status(404).json(response);
+
+      res.status(405).json(response);
     }
   } catch (error) {
     response = {
