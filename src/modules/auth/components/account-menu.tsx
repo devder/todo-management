@@ -1,3 +1,5 @@
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import BrightnessIcon from "@mui/icons-material/Brightness6";
 import Logout from "@mui/icons-material/Logout";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
@@ -6,10 +8,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import BrightnessIcon from "@mui/icons-material/Brightness6";
-import { FC, useContext, useState } from "react";
 import { CustomThemeContext } from "app/contexts/custom-theme";
+import { FC, useContext, useState } from "react";
 
 interface AccountMenuProps {
   username: string;

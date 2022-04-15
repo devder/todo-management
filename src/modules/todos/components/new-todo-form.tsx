@@ -1,8 +1,8 @@
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 import { Button, Card, CardActions, CardContent, TextField } from "@mui/material";
 import { TodosContext } from "modules/todos/context/todos-context";
-import { ChangeEvent, useContext, useState } from "react";
 import styles from "modules/todos/styles/todo-form.module.scss";
+import { ChangeEvent, useContext, useState } from "react";
 
 const NewTodoForm: React.VFC = ({}) => {
   const { newTodo } = useContext(TodosContext);

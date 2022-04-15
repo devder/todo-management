@@ -13,7 +13,7 @@ export class SessionUtil {
   static setSession(res: NextApiResponse, user: IUser) {
     // generate jsonwebtoken, store on the cookie object,
     const userJWT = jwt.sign({ id: user.id, username: user.username }, env.jwtKey, {
-      expiresIn: "1d",
+      expiresIn: this.cookieMaxAge,
     });
 
     const cookie = serialize(this.cookieName, userJWT, {

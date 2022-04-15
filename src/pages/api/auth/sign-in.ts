@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     response = {
       data: user,
-      message: "User signed up",
+      message: "User signed in",
       status: true,
     };
     res.status(200).json(response);

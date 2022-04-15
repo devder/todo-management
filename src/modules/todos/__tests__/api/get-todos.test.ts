@@ -3,9 +3,9 @@
  */
 import { createMocks, RequestMethod } from "node-mocks-http";
 import type { NextApiRequest, NextApiResponse } from "next";
-import getUser from "../get-user";
+import getAllTodos from "../../../../pages/api/todos";
 
-describe("/api/auth/get-user API Endpoint", () => {
+describe("/api/todos/index API Endpoint", () => {
   function mockRequestResponse(method: RequestMethod = "GET") {
     const { req, res }: { req: NextApiRequest; res: NextApiResponse } = createMocks({ method });
     req.headers = {
@@ -14,16 +14,18 @@ describe("/api/auth/get-user API Endpoint", () => {
     return { req, res };
   }
 
-  it("returns 401 if user is unauthenticated", async () => {
+  it("should retrieve all todos successfully", async () => {
     const { req, res } = mockRequestResponse();
-    await getUser(req, res);
+    await getAllTodos(req, res);
 
-    expect(res.statusCode).toBe(401);
+    expect(res.statusCode).toBe(200);
+    expect(res.statusMessage).toEqual("OK");
   });
 
-  it("returns a 405 if http method is not GET", async () => {
-    const { req, res } = mockRequestResponse("POST"); // Invalid HTTP call
-    await getUser(req, res);
+  it("should return a 405 if HTTP method is not GET", async () => {
+    const { req, res } = mockRequestResponse("PUT"); // Invalid HTTP call
+
+    await getAllTodos(req, res);
 
     expect(res.statusCode).toBe(405);
   });

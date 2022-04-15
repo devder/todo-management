@@ -3,7 +3,7 @@
  */
 import { createMocks, RequestMethod } from "node-mocks-http";
 import type { NextApiRequest, NextApiResponse } from "next";
-import signOut from "../sign-out";
+import signOut from "../../../../pages/api/auth/sign-out";
 
 describe("/api/auth/sign-out API Endpoint", () => {
   function mockRequestResponse(method: RequestMethod = "GET") {
