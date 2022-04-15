@@ -33,7 +33,6 @@ export class SessionUtil {
       maxAge: -1,
       path: "/",
     });
-
     res.setHeader("Set-Cookie", cookie);
   }
 

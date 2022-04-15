@@ -44,7 +44,7 @@ const Home: NextPage<Props> = ({ initialTodos }) => {
           </>
         ) : (
           <Typography align="center" variant="h4" sx={{ mt: 6 }}>
-            Sign in to view todos
+            Sign in to view all todos
           </Typography>
         )}
       </div>

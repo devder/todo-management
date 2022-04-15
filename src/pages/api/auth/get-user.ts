@@ -7,6 +7,18 @@ import { NextApiRequest, NextApiResponse } from "next";
 export default async function handler(req: NextApiRequest, res: NextApiResponse<AppResponse<IUser | null>>) {
   let response: AppResponse<IUser | null>;
 
+  // Only allow GET requests
+  if (req.method !== "GET") {
+    response = {
+      data: null,
+      message: "Method not allowed",
+      status: false,
+    };
+
+    res.status(405).json(response);
+    return;
+  }
+
   try {
     const payload = SessionUtil.getSession(req) as IUser;
 
