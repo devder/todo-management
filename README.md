@@ -41,6 +41,7 @@ System(directories) is structured using DDD
 - App wide styles in src/styles
 - App wide components, contexts and utilities is in src/app
 
+```bash
 todo-management
 ├── .gitignore
 ├── .dockerignore
@@ -147,3 +148,4 @@ todo-management
 │ └── index.tsx
 └── styles
 └── globals.scss
+```
