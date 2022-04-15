@@ -17,8 +17,11 @@ npm run dev
 
 ## How to start the application with Docker
 
-1. [Install Docker](https://docs.docker.com/get-docker/) on your machine.
-2. Build and run the application
+1. Clone this [repo](https://github.com/devder/todo-management) to your local machine.
+2. [Install Docker](https://docs.docker.com/get-docker/) on your machine (if you don't have it).
+3. Navigate to the project directory in your terminal
+4. Create a `.env.local` file and add `JWT_KEY` with a value of your choice.
+5. Build and run the application
 
 ```bash
 docker compose up
@@ -32,7 +35,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 # Directory structure
 
-System(directories) is structured using DDD
+System (directories) is structured using DDD
 
 - Api routes for auth is in src/pages/api/auth
 - Front end routes for auth is in src/pages/auth
