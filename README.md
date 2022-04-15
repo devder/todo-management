@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## How to start the application locally
 
 1. Clone this [repo](https://github.com/devder/todo-management) to your local machine.
