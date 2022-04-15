@@ -3,7 +3,7 @@
  */
 import { createMocks, RequestMethod } from "node-mocks-http";
 import type { NextApiRequest, NextApiResponse } from "next";
-import todoId from "../../../../pages/api/todos/[todoId]";
+import todoId from "../[todoId]";
 import { ITodo } from "modules/todos/interfaces";
 
 describe("/api/todos/[todoId] API Endpoint", () => {

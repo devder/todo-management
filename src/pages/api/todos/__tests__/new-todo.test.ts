@@ -3,7 +3,7 @@
  */
 import { createMocks, RequestMethod } from "node-mocks-http";
 import type { NextApiRequest, NextApiResponse } from "next";
-import newTodo from "../../../../pages/api/todos/new-todo";
+import newTodo from "../new-todo";
 
 describe("/api/todos/new-todo API Endpoint", () => {
   function mockRequestResponse(method: RequestMethod = "POST", todoContent: string = "new todo content") {

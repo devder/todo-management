@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --no-cache"
+    "test": "jest --watchAll --no-cache"
   },
   "dependencies": {
     "@date-io/moment": "^2.13.1",
