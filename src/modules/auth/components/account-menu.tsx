@@ -9,7 +9,7 @@ import Tooltip from "@mui/material/Tooltip";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import BrightnessIcon from "@mui/icons-material/Brightness6";
 import { FC, useContext, useState } from "react";
-import { CustomThemeContext } from "app/components/custom-theme-context";
+import { CustomThemeContext } from "app/contexts/custom-theme";
 
 interface AccountMenuProps {
   username: string;

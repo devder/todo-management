@@ -5,9 +5,9 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { TodosContext } from "modules/todos/context/todos-context";
 import { ITodo } from "modules/todos/interfaces";
+import styles from "modules/todos/styles/todo-item.module.scss";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
-import styles from "modules/todos/styles/todo-item.module.scss";
 
 interface TodoItemProps {
   todo: ITodo;

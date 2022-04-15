@@ -3,7 +3,7 @@ import { Layout } from "app/components/layout";
 import { Loader } from "app/components/loader";
 import { AppResponse } from "app/lib/app-response";
 import env from "app/lib/environment";
-import { useUser } from "modules/auth/utils/use-user";
+import { useUser } from "modules/auth/hooks/use-user";
 import NewTodoForm from "modules/todos/components/new-todo-form";
 import TodoList from "modules/todos/components/todo-list";
 import { TodosContext } from "modules/todos/context/todos-context";
@@ -29,7 +29,7 @@ const Home: NextPage<Props> = ({ initialTodos }) => {
   if (isLoading) {
     return (
       <Layout>
-        <Loader />;
+        <Loader />
       </Layout>
     );
   }
