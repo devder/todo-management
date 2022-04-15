@@ -9,33 +9,43 @@ import { NextApiRequest, NextApiResponse } from "next";
 export default async function handler(req: NextApiRequest, res: NextApiResponse<AppResponse<IUser | null>>) {
   let response: AppResponse<IUser | null>;
 
-  if (req.method === "POST") {
-    try {
-      const authProps = req.body.authProps as AuthProps;
+  // Only allow POST requests
+  if (req.method !== "POST") {
+    response = {
+      data: null,
+      message: "Method not allowed",
+      status: false,
+    };
 
-      const user = await validateUser(authProps);
+    res.status(405).json(response);
+    return;
+  }
 
-      SessionUtil.setSession(res, user);
+  try {
+    const authProps = req.body.authProps as AuthProps;
 
-      response = {
-        data: user,
-        message: "User signed up",
-        status: true,
-      };
-      res.status(200).json(response);
-    } catch (error) {
-      let errorCode = "";
-      if (error instanceof Error) {
-        errorCode = error.message;
-      }
-      const isInvalid = errorCode === ErrorCode.NotFound;
+    const user = await validateUser(authProps);
 
-      response = {
-        data: null,
-        message: isInvalid ? "Invalid Credentials" : "Server Error",
-        status: false,
-      };
-      res.status(isInvalid ? 404 : 500).json(response);
+    SessionUtil.setSession(res, user);
+
+    response = {
+      data: user,
+      message: "User signed up",
+      status: true,
+    };
+    res.status(200).json(response);
+  } catch (error) {
+    let errorCode = "";
+    if (error instanceof Error) {
+      errorCode = error.message;
     }
+    const isInvalid = errorCode === ErrorCode.NotFound;
+
+    response = {
+      data: null,
+      message: isInvalid ? "Invalid Credentials" : "Server Error",
+      status: false,
+    };
+    res.status(isInvalid ? 404 : 500).json(response);
   }
 }

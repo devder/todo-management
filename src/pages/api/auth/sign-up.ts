@@ -9,33 +9,64 @@ import { NextApiRequest, NextApiResponse } from "next";
 export default async function handler(req: NextApiRequest, res: NextApiResponse<AppResponse<IUser | null>>) {
   let response: AppResponse<IUser | null>;
 
-  if (req.method === "POST") {
-    try {
-      const authProps = req.body.authProps as AuthProps;
+  // Only allow POST requests
+  if (req.method !== "POST") {
+    response = {
+      data: null,
+      message: "Method not allowed",
+      status: false,
+    };
 
-      const user = await buildUser(authProps);
+    res.status(405).json(response);
+    return;
+  }
 
-      SessionUtil.setSession(res, user);
+  try {
+    const authProps = req.body.authProps as AuthProps;
 
-      response = {
-        data: user,
-        message: "User signed up",
-        status: true,
-      };
-      res.status(201).json(response);
-    } catch (error) {
-      let errorCode = "";
-      if (error instanceof Error) {
-        errorCode = error.message;
-      }
-      const alreadyExists = errorCode === ErrorCode.AlreadyExists;
+    const isValid =
+      typeof authProps.username === "string" && authProps.username.length && typeof authProps.password === "string";
 
-      response = {
-        data: null,
-        message: alreadyExists ? "A user with that username already exists" : "Server Error",
-        status: false,
-      };
-      res.status(500).json(response);
+    if (!isValid) {
+      throw new Error(ErrorCode.Forbidden);
     }
+
+    const user = await buildUser(authProps);
+
+    SessionUtil.setSession(res, user);
+
+    response = {
+      data: user,
+      message: "User signed up",
+      status: true,
+    };
+    res.status(201).json(response);
+  } catch (error) {
+    let errorCode = "";
+    if (error instanceof Error) {
+      errorCode = error.message;
+    }
+
+    let message = "Server Error";
+
+    switch (errorCode) {
+      case ErrorCode.AlreadyExists:
+        message = "A user with that username already exists";
+        break;
+      case ErrorCode.Forbidden:
+        message = "Invalid Params";
+        break;
+      default:
+        break;
+    }
+
+    response = {
+      data: null,
+      message,
+      status: false,
+    };
+
+    const statusCode = errorCode === ErrorCode.AlreadyExists || errorCode === ErrorCode.Forbidden ? 400 : 500;
+    res.status(statusCode).json(response);
   }
 }
