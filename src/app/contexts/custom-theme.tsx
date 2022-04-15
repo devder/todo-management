@@ -13,17 +13,7 @@ interface ThemeProviderProps {
 export const CustomThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [mode, setMode] = useState<"light" | "dark">("light");
 
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode(prevMode => (prevMode === "light" ? "dark" : "light"));
-        document.documentElement.setAttribute("data-theme", mode === "light" ? "dark" : "light");
-      },
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
-
+  // only recompile when a dependency changes (mode)
   const theme = useMemo(() => {
     return createTheme({
       typography: {
@@ -34,6 +24,17 @@ export const CustomThemeProvider: React.FC<ThemeProviderProps> = ({ children }) 
       },
     });
   }, [mode]);
+
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode(prevMode => (prevMode === "light" ? "dark" : "light"));
+        document.documentElement.setAttribute("data-theme", mode === "light" ? "dark" : "light");
+      },
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", mode);

@@ -3,11 +3,11 @@ import useSWR from "swr";
 import { AuthContext } from "../context/auth-context";
 import { IUser } from "../interfaces/IUser";
 
-const fetcher = (url: string) => fetch(url).then(r => r.json());
+const customSWRfetcher = (url: string) => fetch(url).then(r => r.json());
 
 export const useUser = () => {
   const { setUser, clearUser } = useContext(AuthContext);
-  const { data } = useSWR("/api/auth/get-user", fetcher);
+  const { data } = useSWR("/api/auth/get-user", customSWRfetcher);
   const user = data?.data as IUser;
 
   const isLoading = !data;

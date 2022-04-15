@@ -3,8 +3,8 @@
  */
 import { createMocks, RequestMethod } from "node-mocks-http";
 import type { NextApiRequest, NextApiResponse } from "next";
-import signIn from "../sign-in";
-import { AuthProps } from "modules/auth/interfaces";
+import signIn from "../../../../pages/api/auth/sign-in";
+import { AuthProps } from "../../interfaces";
 
 describe("/api/auth/sign-in API Endpoint", () => {
   function mockRequestResponse(method: RequestMethod = "POST", authProps?: AuthProps) {
@@ -33,11 +33,11 @@ describe("/api/auth/sign-in API Endpoint", () => {
 
   //  ========================== NEED TO HAVE REGISTERED FIRST ======================================
 
-  //  it("returns a 201 on successful signIn", async () => {
-  //    const { req, res } = mockRequestResponse("POST", { username: "testUsername201", password: "testPassword" });
+  //  it("returns a 200 on successful signIn", async () => {
+  //    const { req, res } = mockRequestResponse("POST", { username: "testUsername200", password: "testPassword" });
   //    await signIn(req, res);
 
-  //    expect(res.statusCode).toBe(201);
+  //    expect(res.statusCode).toBe(200);
   //    expect(res.statusMessage).toEqual("OK");
   //  });
 
@@ -45,7 +45,7 @@ describe("/api/auth/sign-in API Endpoint", () => {
   //    const { req, res } = mockRequestResponse("POST", { username: "test-username2", password: "test-password2" });
   //    await signIn(req, res);
 
-  //    expect(res.statusCode).toBe(201);
+  //    expect(res.statusCode).toBe(200);
   //    expect(res.getHeader("Set-Cookie")).toBeDefined();
   //  });
 });

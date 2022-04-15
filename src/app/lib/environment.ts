@@ -1,5 +1,7 @@
+const CLIENT_URL = "http://localhost:3000";
+
 const environment = {
-  clientUrl: process.env.CLIENT_URL!,
+  clientUrl: CLIENT_URL,
   jwtKey: process.env.JWT_KEY!,
 };
 

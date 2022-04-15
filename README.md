@@ -1,34 +1,151 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## How to start the application locally
 
-First, run the development server:
+1. Clone this [repo](https://github.com/devder/todo-management) to your local machine.
+2. Navigate to the project directory in your terminal
+3. Install dependencies.
+
+```bash
+npm install
+```
+
+4. Create a .env.local file and add [`JWT_KEY`] with a value of your choice.
+5. Start the development server.
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How to start the application with Docker
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+1. [Install Docker](https://docs.docker.com/get-docker/) on your machine.
+2. Build and run the application
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```bash
+docker compose up
+# OR
+docker build -t todo-management .
+docker run -p 3000:3000 todo-management
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# Directory structure
 
-## Learn More
+System(directories) is structured using DDD
 
-To learn more about Next.js, take a look at the following resources:
+- Api routes for auth is in src/pages/api/auth
+- Front end routes for auth is in src/pages/auth
+- Api routes for todos is in src/pages/api/todos
+- Front end routes for todos is in src/pages/todos
+- Tests, components, contexts, hooks, interfaces, reducers, styles, utilities for auth is in src/modules/auth and src/modules/todos respectively
+- App wide styles in src/styles
+- App wide components, contexts and utilities is in src/app
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+todo-management
+├── .gitignore
+├── .dockerignore
+├── .env.local
+├── .env.test.local
+├── .eslintrc.json
+├── docker-compose.yml
+├── Dockerfile
+├── jest.config.js
+├── next.config.js
+├── package-lock.json
+├── package.json
+├── README.md
+├── tsconfig.json
+├── .next
+├── node_modules
+├── public
+│ └── favicon.ico
+└── src
+├── app
+│ ├── components
+│ │ ├── layout.tsx
+│ │ ├── loader.tsx
+│ │ └── navbar.tsx
+│ ├── contexts
+│ │ └── custom-theme.tsx
+│ ├── lib
+│ │ ├── app-response.ts
+│ │ ├── environment.ts
+│ │ └── error-code.ts
+│ └── utils
+│ ├── db-connect.ts
+│ └── fetcher.ts
+├── modules
+│ ├── auth
+│ │ ├── tests
+│ │ │ └── api
+│ │ │ ├── get-user.test.ts
+│ │ │ ├── sing-in.test.ts
+│ │ │ ├── sign-out.test.ts
+│ │ │ └── sign-up.test.ts
+│ │ ├── components
+│ │ │ ├── account-menu.tsx
+│ │ │ └── auth-form.tsx
+│ │ ├── context
+│ │ │ └── auth-context.tsx
+│ │ ├── hooks
+│ │ │ └── use-user.ts
+│ │ ├── interfaces
+│ │ │ ├── index.ts
+│ │ │ └── Iuser.ts
+│ │ ├── reducers
+│ │ │ └── auth-reducer.ts
+│ │ ├── styles
+│ │ │ └── auth-form.module.scss
+│ │ └── utils
+│ │ ├── build-user.ts
+│ │ ├── cookie-util.ts
+│ │ ├── password-util.ts
+│ │ ├── session-util.ts
+│ │ └── validate-user.ts
+│ └── todos
+│ ├── tests
+│ │ └── api
+│ │ ├── todoId.test.ts
+│ │ ├── delete-todo.test.ts
+│ │ ├── get-todos.test.ts
+│ │ └── new-todo.test.ts
+│ ├── components
+│ │ ├── edit-todo-form.tsx
+│ │ ├── new-todo-form.tsx
+│ │ ├── todo-item.tsx
+│ │ └── todo-list.tsx
+│ ├── context
+│ │ └── todos-context.tsx
+│ ├── interfaces
+│ │ └── index.ts
+│ ├── reducers
+│ │ └── todo-reducer.ts
+│ └── styles
+│ ├── todo-form.module.scss
+│ └── todo-item.module.scss
+├── pages
+│ ├── api
+│ │ ├── auth
+│ │ │ ├── db
+│ │ │ │ └── auth.json
+│ │ │ ├── get-user.ts
+│ │ │ ├── sign-in.ts
+│ │ │ ├── sign-out.ts
+│ │ │ └── sign-up.ts
+│ │ └── todos
+│ │ ├── db
+│ │ │ └── todos.json
+│ │ ├── todoId.ts
+│ │ ├── delete-todo.ts
+│ │ ├── index.ts
+│ │ └── new-todo.ts
+│ ├── auth
+│ │ └── index.tsx
+│ ├── todos
+│ │ └── todoId.tsx
+│ ├── app.tsx
+│ └── index.tsx
+└── styles
+└── globals.scss
+```

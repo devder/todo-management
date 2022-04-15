@@ -2,11 +2,11 @@
 
 const securityHeaders = [
   {
-    key: "Access-Control-Allow-Origin",
+    key: "Access-Control-Allow-Origin", // PROTECT AGAINST CSRF
     value: "http://localhost:3000",
   },
   {
-    key: "X-XSS-Protection",
+    key: "X-XSS-Protection", // PROTECT AGAINST XSS
     value: "1; mode=block",
   },
 ];

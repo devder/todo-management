@@ -6,9 +6,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { TodosContext } from "modules/todos/context/todos-context";
 import { ITodo } from "modules/todos/interfaces";
+import styles from "modules/todos/styles/todo-form.module.scss";
 import { useRouter } from "next/router";
 import { ChangeEvent, useContext, useState } from "react";
-import styles from "modules/todos/styles/todo-form.module.scss";
 
 interface FormProps {
   todo: ITodo;

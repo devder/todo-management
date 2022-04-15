@@ -3,8 +3,8 @@
  */
 import { createMocks, RequestMethod } from "node-mocks-http";
 import type { NextApiRequest, NextApiResponse } from "next";
-import todoId from "../[todoId]";
-import { ITodo } from "modules/todos/interfaces";
+import todoId from "../../../../pages/api/todos/[todoId]";
+import { ITodo } from "../../interfaces";
 
 describe("/api/todos/[todoId] API Endpoint", () => {
   function mockRequestResponse(method: RequestMethod = "GET", todoId: string, updatedTodo?: ITodo) {
@@ -22,10 +22,17 @@ describe("/api/todos/[todoId] API Endpoint", () => {
     await todoId(req, res);
 
     expect(res.statusCode).toBe(400);
-    expect(res.statusMessage).toEqual("OK");
   });
 
-  // ========================= YOU NEED A REAL ID TO RUN THIS TEST =======================================
+  it("should return a 405 if HTTP method is not PUT || GET", async () => {
+    const { req, res } = mockRequestResponse("DELETE", "ef5a68b7"); // Invalid HTTP call
+
+    await todoId(req, res);
+
+    expect(res.statusCode).toBe(405);
+  });
+
+  // ========================= YOU NEED A REAL ID TO RUN THESE TESTS =======================================
   // ========================= or create mock data =======================================
 
   // it("should return a successful response if todo was found", async () => {
@@ -47,14 +54,6 @@ describe("/api/todos/[todoId] API Endpoint", () => {
   //   await todoId(req, res);
   //   expect(res.statusCode).toBe(201);
   // });
-
-  it("should return a 405 if HTTP method is not PUT || GET", async () => {
-    const { req, res } = mockRequestResponse("DELETE", "ef5a68b7"); // Invalid HTTP call
-
-    await todoId(req, res);
-
-    expect(res.statusCode).toBe(405);
-  });
 });
 
 export {};

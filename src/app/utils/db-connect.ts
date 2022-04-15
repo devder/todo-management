@@ -20,6 +20,7 @@ export class DB {
   static writeDataToDb = async <T>(model: DbModelType, data: T) => {
     const filePath = this.getDbPath(model);
 
+    // store data in db
     await writeFile(filePath, JSON.stringify(data));
   };
 }
